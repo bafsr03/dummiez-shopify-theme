@@ -194,11 +194,11 @@
             "text_wholesale_title": {
               "type": "text",
               "settings": {
-                "text": "<h2>SEND US A MESSAGE FOR WHOLESALE INQUIRIES</h2>",
+                "text": "<h2>WHOLESALE ENQUIRIES</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "h1",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
