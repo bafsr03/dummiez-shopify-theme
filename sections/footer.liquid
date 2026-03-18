@@ -84,6 +84,32 @@
       grid-column: 1 / -1;
     }
   }
+  /* Footer nav link styles */
+  .footer-content .rte h4,
+  .footer-content .rte h3 {
+    font-family: var(--font-primary--family);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-content .rte a {
+    color: var(--color-foreground);
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.85;
+  }
+
+  .footer-content .rte a:hover {
+    color: #fef824;
+    opacity: 1;
+  }
+
+  .footer-content .rte p {
+    margin: 0 0 0.35rem;
+  }
 {% endstylesheet %}
 
 {% schema %}
