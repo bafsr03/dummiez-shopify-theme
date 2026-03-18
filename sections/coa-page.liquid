@@ -9,12 +9,26 @@
   <div class="coa-page__inner page-width">
 
     <header class="coa-page__header">
-      <h1 class="coa-page__title">Certificates of Analysis</h1>
+      <h1 class="coa-page__title">
+        {%- if section.settings.show_page_title and page.title != blank -%}
+          {{ page.title }}
+        {%- else -%}
+          {{ section.settings.title }}
+        {%- endif -%}
+      </h1>
       <div class="coa-page__accent-bar"></div>
-      <p class="coa-page__subtitle">
-        All Dummiez products are third-party lab tested. Download the Certificate of Analysis for any product below.
-      </p>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="coa-page__subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
     </header>
+
+    {%- if section.settings.show_page_content and page.content != blank -%}
+      <div class="coa-page__admin-content rte">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
 
     {%- assign coa_collection = collections[section.settings.collection] -%}
     {%- assign has_any_coa = false -%}
@@ -28,12 +42,13 @@
             <div class="coa-page__card">
               {%- if product.featured_image -%}
                 <div class="coa-page__card-image">
+                  {%- assign product_title = product.title | escape -%}
                   {{
                     product.featured_image
                     | image_url: width: 200
                     | image_tag:
                       loading: 'lazy',
-                      alt: product.title | escape,
+                      alt: product_title,
                       class: 'coa-page__card-img'
                   }}
                 </div>
@@ -92,6 +107,17 @@
     margin-inline: auto;
     padding-inline: var(--padding-xl);
     animation: coaPageFadeIn 0.5s ease both;
+  }
+
+  .coa-page__admin-content {
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .coa-page__admin-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
   }
 
   .coa-page__header {
@@ -232,6 +258,30 @@
 {
   "name": "COA Page",
   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Certificates of Analysis"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "All Dummiez products are third-party lab tested. Download the Certificate of Analysis for any product below."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_title",
+      "label": "Use Page Title as heading",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_content",
+      "label": "Show content from Page editor",
+      "default": true
+    },
     {
       "type": "collection",
       "id": "collection",

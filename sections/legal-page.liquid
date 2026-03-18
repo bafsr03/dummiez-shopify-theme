@@ -9,7 +9,13 @@
   <div class="legal-page__inner page-width">
 
     <header class="legal-page__header">
-      <h1 class="legal-page__title">{{ section.settings.page_title }}</h1>
+      <h1 class="legal-page__title">
+        {%- if section.settings.show_page_title and page.title != blank -%}
+          {{ page.title }}
+        {%- else -%}
+          {{ section.settings.page_title }}
+        {%- endif -%}
+      </h1>
       <div class="legal-page__accent-bar"></div>
       {%- if section.settings.last_updated != blank -%}
         <p class="legal-page__meta">Last updated: {{ section.settings.last_updated }}</p>
@@ -17,7 +23,11 @@
     </header>
 
     <div class="legal-page__content rte">
-      {{ section.settings.content }}
+      {%- if section.settings.show_page_content and page.content != blank -%}
+        {{ page.content }}
+      {%- else -%}
+        {{ section.settings.content }}
+      {%- endif -%}
     </div>
 
     <div class="legal-page__back-top">
@@ -167,6 +177,18 @@
 {
   "name": "Legal Page",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_page_title",
+      "label": "Use Page Title as heading",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_content",
+      "label": "Show content from Page editor",
+      "default": true
+    },
     {
       "type": "text",
       "id": "page_title",
