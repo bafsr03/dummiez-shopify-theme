@@ -1,0 +1,278 @@
+
+<div
+  class="coa-page color-{{ section.settings.color_scheme }}"
+  style="
+    padding-block-start: {{ section.settings.padding-block-start }}px;
+    padding-block-end: {{ section.settings.padding-block-end }}px;
+  "
+>
+  <div class="coa-page__inner page-width">
+
+    <header class="coa-page__header">
+      <h1 class="coa-page__title">Certificates of Analysis</h1>
+      <div class="coa-page__accent-bar"></div>
+      <p class="coa-page__subtitle">
+        All Dummiez products are third-party lab tested. Download the Certificate of Analysis for any product below.
+      </p>
+    </header>
+
+    {%- assign coa_collection = collections[section.settings.collection] -%}
+    {%- assign has_any_coa = false -%}
+
+    {%- if coa_collection != blank and coa_collection.products.size > 0 -%}
+      <div class="coa-page__grid">
+        {%- for product in coa_collection.products -%}
+          {%- assign coa_url = product.metafields.custom.coa_pdf -%}
+          {%- if coa_url != blank -%}
+            {%- assign has_any_coa = true -%}
+            <div class="coa-page__card">
+              {%- if product.featured_image -%}
+                <div class="coa-page__card-image">
+                  {{
+                    product.featured_image
+                    | image_url: width: 200
+                    | image_tag:
+                      loading: 'lazy',
+                      alt: product.title | escape,
+                      class: 'coa-page__card-img'
+                  }}
+                </div>
+              {%- endif -%}
+              <div class="coa-page__card-info">
+                <h2 class="coa-page__card-title">{{ product.title }}</h2>
+                {%- if product.metafields.descriptors.subtitle.value != blank -%}
+                  <p class="coa-page__card-subtitle">{{ product.metafields.descriptors.subtitle.value }}</p>
+                {%- endif -%}
+                <a
+                  href="{{ coa_url }}"
+                  class="coa-page__download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download COA for {{ product.title | escape }}"
+                >
+                  <span class="coa-page__download-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="12" y1="18" x2="12" y2="12"/>
+                      <line x1="9" y1="15" x2="15" y2="15"/>
+                    </svg>
+                  </span>
+                  Download COA
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if has_any_coa == false -%}
+        <p class="coa-page__empty">COAs are being uploaded. Check back soon.</p>
+      {%- endif -%}
+
+    {%- else -%}
+      <p class="coa-page__empty">COAs are being uploaded. Check back soon.</p>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% stylesheet %}
+  @keyframes coaPageFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .coa-page {
+    min-height: 60vh;
+  }
+
+  .coa-page__inner {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding-inline: var(--padding-xl);
+    animation: coaPageFadeIn 0.5s ease both;
+  }
+
+  .coa-page__header {
+    margin-bottom: 3rem;
+  }
+
+  .coa-page__title {
+    font-family: var(--font-primary--family);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.1;
+    margin: 0 0 0.6rem;
+    color: var(--color-foreground);
+  }
+
+  .coa-page__accent-bar {
+    width: 60px;
+    height: 5px;
+    background: #fef824;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    transition: width 0.4s ease;
+  }
+
+  .coa-page__header:hover .coa-page__accent-bar {
+    width: 120px;
+  }
+
+  .coa-page__subtitle {
+    font-size: var(--font-paragraph--size);
+    color: rgb(var(--color-foreground-rgb) / 0.7);
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .coa-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .coa-page__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgb(var(--color-foreground-rgb) / 0.05);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+    border-radius: var(--style-border-radius-buttons, 8px);
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    animation: coaPageFadeIn 0.5s ease both;
+  }
+
+  .coa-page__card:hover {
+    border-color: #fef824;
+    transform: translateY(-3px);
+  }
+
+  .coa-page__card-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: rgb(var(--color-foreground-rgb) / 0.05);
+  }
+
+  .coa-page__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .coa-page__card:hover .coa-page__card-img {
+    transform: scale(1.04);
+  }
+
+  .coa-page__card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1rem 1.25rem;
+    flex: 1;
+  }
+
+  .coa-page__card-title {
+    font-family: var(--font-primary--family);
+    font-size: 1.1rem;
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+    color: var(--color-foreground);
+  }
+
+  .coa-page__card-subtitle {
+    font-size: var(--font-paragraph-small--size);
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+    margin: 0;
+  }
+
+  .coa-page__download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding: 10px 18px;
+    background: #000;
+    color: #fef824;
+    border: 2px solid #fef824;
+    border-radius: var(--style-border-radius-buttons, 4px);
+    font-family: var(--font-primary--family);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .coa-page__download-btn:hover {
+    background: #fef824;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(254, 248, 36, 0.3);
+  }
+
+  .coa-page__download-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .coa-page__empty {
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+    font-style: italic;
+    margin-top: 2rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "COA Page",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to display COAs from",
+      "info": "Only products with a 'custom.coa_pdf' metafield set will appear."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "COA Page"
+    }
+  ]
+}
+{% endschema %}
