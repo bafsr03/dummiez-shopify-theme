@@ -19,6 +19,9 @@
   {% assign form_id = block.id | default: section.id | prepend: 'ContactForm-' %}
 
   {%- form 'contact', id: form_id, class: 'contact-form__form' -%}
+    {%- if block.settings.form_tag != blank -%}
+      <input type="hidden" name="contact[tags]" value="{{ block.settings.form_tag }}">
+    {%- endif -%}
     {%- if form.errors -%}
       <div
         class="contact-form__error"
@@ -157,11 +160,33 @@
     min-height: var(--input-textarea-min-height);
   }
 
+  .contact-form__input:focus {
+    outline: 2px solid #fef824;
+    outline-offset: 2px;
+    border-color: #fef824;
+    transition: border-color 0.2s ease, outline-color 0.2s ease;
+  }
+
   .contact-form__error,
   .contact-form__success {
     display: flex;
     align-items: center;
     gap: var(--gap-xs);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .contact-form {
+    animation: fadeInUp 0.4s ease both;
   }
 {% endstylesheet %}
 
@@ -170,6 +195,12 @@
   "name": "t:names.contact_form",
   "tag": null,
   "settings": [
+    {
+      "type": "text",
+      "id": "form_tag",
+      "label": "Form tag (inbox label)",
+      "info": "A hidden tag sent with submissions to identify this form in your Shopify inbox (e.g. 'general' or 'wholesale'). Leave blank to omit."
+    },
     {
       "type": "select",
       "id": "width",
