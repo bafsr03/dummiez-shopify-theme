@@ -128,7 +128,7 @@
       ],
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/brainBG.png",
+        "image_1": "shopify://shop_images/3DBG.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -165,6 +165,9 @@
           "type": "text",
           "settings": {
             "text": "<p>PREMIUM HEMP EDIBLES</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-heading--family)",
             "font_size": "var(--font-size--h3)",
@@ -172,7 +175,14 @@
             "letter_spacing": "normal",
             "case": "uppercase",
             "wrap": "nowrap",
-            "width": "fit-content"
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -180,6 +190,9 @@
           "type": "text",
           "settings": {
             "text": "<p>✦</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-heading--family)",
             "font_size": "var(--font-size--h3)",
@@ -187,7 +200,14 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "nowrap",
-            "width": "fit-content"
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -195,6 +215,9 @@
           "type": "text",
           "settings": {
             "text": "<p>DESIGNED FOR MODERN LIFE</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-heading--family)",
             "font_size": "var(--font-size--h3)",
@@ -202,7 +225,14 @@
             "letter_spacing": "normal",
             "case": "uppercase",
             "wrap": "nowrap",
-            "width": "fit-content"
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -210,6 +240,9 @@
           "type": "text",
           "settings": {
             "text": "<p>✦</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-heading--family)",
             "font_size": "var(--font-size--h3)",
@@ -217,7 +250,14 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "nowrap",
-            "width": "fit-content"
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -225,6 +265,9 @@
           "type": "text",
           "settings": {
             "text": "<p>THE LIFE OF THE PARTY</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-heading--family)",
             "font_size": "var(--font-size--h3)",
@@ -232,7 +275,14 @@
             "letter_spacing": "normal",
             "case": "uppercase",
             "wrap": "nowrap",
-            "width": "fit-content"
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -240,6 +290,9 @@
           "type": "text",
           "settings": {
             "text": "<p>✦</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-heading--family)",
             "font_size": "var(--font-size--h3)",
@@ -247,7 +300,14 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "nowrap",
-            "width": "fit-content"
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         }
@@ -262,10 +322,10 @@
       ],
       "settings": {
         "movement_direction": "reverse",
-        "gap_between_elements": 32,
         "color_scheme": "scheme-2",
         "padding-block-start": 20,
-        "padding-block-end": 20
+        "padding-block-end": 20,
+        "gap_between_elements": 32
       }
     },
     "product_list_X8Q7bi": {
