@@ -364,6 +364,10 @@
       scroll-lock
       aria-labelledby="filters-drawer-heading"
     >
+      <div class="filter-layer filter-layer--3" aria-hidden="true"></div>
+      <div class="filter-layer filter-layer--2" aria-hidden="true"></div>
+      <div class="filter-layer filter-layer--1" aria-hidden="true"></div>
+      <div class="filter-drawer__inner">
       {% assign form_component = 'FacetFiltersFormComponent--' | append: section.id | append: '-overflow' %}
       <facets-form-component
         class="facets__form-wrapper facets-drawer__form-wrapper"
@@ -475,6 +479,7 @@
         should_show_clear_all: true,
         clear_all_button_style: 'button-secondary'
       %}
+      </div><!-- /.filter-drawer__inner -->
     </dialog>
   </dialog-component>
 {% endif %}
@@ -1205,6 +1210,114 @@
       z-index: var(--facets-open-z-index);
     }
   }
+
+  /* ── Filter drawer – overflow + inner clip ── */
+  .facets--drawer {
+    /* Allow the colour layers to overflow outside the dialog box */
+    overflow: visible;
+    /* Same size as nav drawer */
+    width: min(25rem, 95vw);
+    max-width: 25rem;
+    border-radius: 0 16px 16px 0;
+  }
+
+  .facets--drawer:modal {
+    max-width: 25rem;
+    width: min(25rem, 95vw);
+    overflow: visible;
+    border-radius: 0 16px 16px 0;
+  }
+
+  .facets--drawer[open] {
+    overflow: visible;
+    /* Match nav drawer speed */
+    --animation-speed: 0.4s;
+    --animation-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .filter-drawer__inner {
+    position: relative;
+    z-index: 2; /* sits above the colour layers */
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+  }
+
+  /* ── Staggered colour layers behind the filter drawer ── */
+  /* The filter drawer slides from the LEFT, so layers fan out to the RIGHT (positive X) */
+  @keyframes filter-fan-out {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(var(--filter-layer-offset)); }
+  }
+
+  @keyframes filter-retract {
+    0%   { transform: translateX(var(--filter-layer-offset)); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Robust closing animation that replaces 'delay' with an internal pause.
+     Total duration 620ms (match 220ms delay + 400ms slide).
+     This prevents 'flashes' where the panel snaps shut before animation recomputes. */
+  @keyframes filter-white-panel-exit {
+    0%   { transform: translateX(0); opacity: 1; }
+    35%  { transform: translateX(0); opacity: 1; } /* Wait for first 220ms (35% of 620ms) */
+    100% { transform: translateX(-100%); opacity: 1; }
+  }
+
+  @keyframes filter-backdrop-exit {
+    0%   { opacity: 1; backdrop-filter: brightness(0.75); }
+    35%  { opacity: 1; backdrop-filter: brightness(0.75); }
+    100% { opacity: 0; backdrop-filter: brightness(1); }
+  }
+
+  .filter-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    transform: translateX(0);
+    will-change: transform;
+    pointer-events: none;
+    border-radius: 0 16px 16px 0;
+    animation-fill-mode: forwards !important;
+  }
+
+  .filter-layer--1 { background: #C42E37; --filter-layer-offset: 12px; }
+  .filter-layer--2 { background: #F0B621; --filter-layer-offset: 22px; }
+  .filter-layer--3 { background: #7196A2; --filter-layer-offset: 32px; }
+
+  /* Opening animation – Fan out to the right */
+  .facets--drawer[open]:not(.dialog-closing) .filter-layer {
+    animation: filter-fan-out 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .facets--drawer[open]:not(.dialog-closing) .filter-layer--1 { animation-delay: 0ms;   }
+  .facets--drawer[open]:not(.dialog-closing) .filter-layer--2 { animation-delay: 75ms;  }
+  .facets--drawer[open]:not(.dialog-closing) .filter-layer--3 { animation-delay: 150ms; }
+
+  /* Closing animation – Retract to the left edge of the dialog */
+  .facets--drawer.dialog-closing .filter-layer {
+    animation: filter-retract 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .facets--drawer.dialog-closing .filter-layer--3 { animation-delay: 0ms;   }
+  .facets--drawer.dialog-closing .filter-layer--2 { animation-delay: 75ms;  }
+  .facets--drawer.dialog-closing .filter-layer--1 { animation-delay: 150ms; }
+
+  /* Final Exit – Matches nav drawer timing and eliminates any flashes. */
+  dialog-component.facets-block-wrapper--drawer .facets--drawer[open].dialog-closing {
+    animation: filter-white-panel-exit 0.62s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+  }
+
+  /* Sync backdrop exit to avoid page-flash behind the moving panel */
+  dialog-component.facets-block-wrapper--drawer .facets--drawer.dialog-closing::backdrop {
+    animation: filter-backdrop-exit 0.62s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+    transition: none !important; /* disable standard transition to use our unified keyframe */
+  }
+
 {% endstylesheet %}
 
 {% schema %}
