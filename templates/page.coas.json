@@ -4,7 +4,7 @@
       "type": "coa-page",
       "settings": {
         "collection": "all",
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-1",
         "padding-block-start": 60,
         "padding-block-end": 80
       }

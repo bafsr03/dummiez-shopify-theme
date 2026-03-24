@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "footer",
   "name": "Footer",
@@ -14,6 +5,32 @@
     "footer_WnX4aJ": {
       "type": "footer",
       "blocks": {
+        "email_signup_t3aAfi": {
+          "type": "email-signup",
+          "name": "Email signup",
+          "settings": {
+            "width": "custom",
+            "custom_width": 28,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "heading": "LET'S GET IN TOUCH",
+            "heading_preset": "h3",
+            "border_style": "underline",
+            "border_width": 1,
+            "border_radius": 100,
+            "input_type_preset": "paragraph",
+            "style_class": "button-unstyled",
+            "display_type": "arrow",
+            "label": "Sign Up",
+            "integrated_button": false,
+            "button_type_preset": "paragraph",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "group_nav_row": {
           "type": "group",
           "name": "Nav columns",
@@ -25,7 +42,7 @@
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 48,
+            "gap": 40,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -58,14 +75,14 @@
               "type": "text",
               "name": "Shop column",
               "settings": {
-                "text": "<h4>SHOP</h4><p><a href=\"/collections/all\">All Products</a></p><p><a href=\"/pages/contact\">Contact Us</a></p>",
+                "text": "<h4>Shop</h4><p><a href=\"/collections/all\">Shop All</a></p><p><a href=\"/pages/contact\">Wholesale</a></p><p><a",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "1.8",
+                "font_size": "0.875rem",
+                "line_height": "2",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
@@ -80,18 +97,44 @@
               },
               "blocks": {}
             },
-            "col_legal": {
+            "col_learn": {
               "type": "text",
-              "name": "Legal column",
+              "name": "Learn column",
               "settings": {
-                "text": "<h4>LEGAL</h4><p><a href=\"/pages/terms-conditions\">Terms &amp; Conditions</a></p><p><a href=\"/pages/privacy-policy\">Privacy Policy</a></p><p><a href=\"/pages/coas-legal-terms-conditions\">Certificates of Analysis</a></p>",
+                "text": "<h4>Learn</h4><p><a href=\"/pages/contact\">FAQ</a></p><p><a href=\"/pages/contact\">Contact Us</a></p><p><a href=\"/pages/coas-legal-terms-conditions\">Lab Results (COAs)</a></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "1.8",
+                "font_size": "0.875rem",
+                "line_height": "2",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "col_more": {
+              "type": "text",
+              "name": "More column",
+              "settings": {
+                "text": "<h4>More</h4><p><a href=\"/pages/terms-conditions\">Terms &amp; Conditions</a></p><p><a href=\"/pages/privacy-policy\">Privacy Policy</a></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "2",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
@@ -109,70 +152,27 @@
           },
           "block_order": [
             "col_shop",
-            "col_legal"
+            "col_learn",
+            "col_more"
           ]
-        },
-        "email_signup_t3aAfi": {
-          "type": "email-signup",
-          "name": "Email signup",
-          "settings": {
-            "width": "fill",
-            "custom_width": 70,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "heading": "GET IN TOUCH",
-            "heading_preset": "h4",
-            "border_style": "underline",
-            "border_width": 1,
-            "border_radius": 100,
-            "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
-            "label": "Sign Up",
-            "integrated_button": false,
-            "button_type_preset": "paragraph",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
         }
       },
       "block_order": [
-        "group_nav_row",
-        "email_signup_t3aAfi"
+        "email_signup_t3aAfi",
+        "group_nav_row"
       ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
-        "gap": 12,
-        "color_scheme": "scheme-2",
-        "padding-block-start": 36,
-        "padding-block-end": 36
+        "gap": 48,
+        "color_scheme": "scheme-5",
+        "padding-block-start": 60,
+        "padding-block-end": 48
       }
     },
     "utilities": {
       "type": "footer-utilities",
       "blocks": {
-        "copyright": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "footer_policy_list_i3GaPF": {
-          "type": "footer-policy-list",
-          "name": "t:names.policy_list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
         "social_links_Nyht3m": {
           "type": "social-links",
           "name": "t:names.social_media_links",
@@ -192,20 +192,38 @@
             "custom_url": ""
           },
           "blocks": {}
+        },
+        "copyright": {
+          "type": "footer-copyright",
+          "settings": {
+            "show_powered_by": false,
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "footer_policy_list_i3GaPF": {
+          "type": "footer-policy-list",
+          "name": "t:names.policy_list",
+          "settings": {
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
+        "social_links_Nyht3m",
         "copyright",
-        "footer_policy_list_i3GaPF",
-        "social_links_Nyht3m"
+        "footer_policy_list_i3GaPF"
       ],
       "settings": {
         "section_width": "page-width",
         "gap": 24,
-        "divider_thickness": 0,
-        "color_scheme": "scheme-2",
-        "padding-block-start": 20,
-        "padding-block-end": 20
+        "divider_thickness": 1,
+        "color_scheme": "scheme-5",
+        "padding-block-start": 24,
+        "padding-block-end": 24
       }
     }
   },

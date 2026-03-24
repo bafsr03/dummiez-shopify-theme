@@ -27,7 +27,7 @@
             "aspect_ratio": "1",
             "constrain_to_viewport": false,
             "media_fit": "cover",
-            "media_radius": 0,
+            "media_radius": 16,
             "extend_media": true,
             "zoom": true,
             "video_loop": false,
@@ -75,13 +75,13 @@
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
+                "font": "var(--font-heading--family)",
+                "font_size": "",
+                "line_height": "display-tight",
                 "letter_spacing": "normal",
-                "case": "none",
+                "case": "uppercase",
                 "wrap": "pretty",
-                "color": "var(--color-foreground)",
+                "color": "var(--color-foreground-heading)",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -216,9 +216,9 @@
         "equal_columns": false,
         "limit_details_width": false,
         "gap": 8,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "color_scheme": "scheme-3",
+        "padding-block-start": 40,
+        "padding-block-end": 40
       }
     },
     "product_recommendations_iA6pyd": {
@@ -231,11 +231,11 @@
           "settings": {
             "product_card_gap": 0,
             "inherit_color_scheme": false,
-            "color_scheme": "scheme-2",
+            "color_scheme": "scheme-3",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
+            "border_radius": 16,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -248,9 +248,9 @@
               "settings": {
                 "image_ratio": "square",
                 "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
+                "border_width": 0,
+                "border_opacity": 0,
+                "border_radius": 16,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -483,11 +483,11 @@
         "rows_gap": 2,
         "icons_style": "arrow",
         "icons_shape": "none",
-        "section_width": "full-width",
+        "section_width": "page-width",
         "gap": 0,
         "color_scheme": "scheme-1",
-        "padding-block-start": 1,
-        "padding-block-end": 1
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     }
   },
