@@ -61,17 +61,18 @@
                 "inverse": false,
                 "font": "heading",
                 "unit": "pixel",
-                "pixel_height": 40,
                 "percent_width": 100,
+                "pixel_height": 64,
                 "custom_mobile_size": false,
                 "unit_mobile": "pixel",
-                "pixel_height_mobile": 32,
                 "percent_width_mobile": 100,
+                "pixel_height_mobile": 32,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "email_signup_t3aAfi": {
               "type": "email-signup",

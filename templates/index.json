@@ -149,7 +149,7 @@
         "section_height_custom": 75,
         "color_scheme": "scheme-6",
         "toggle_overlay": true,
-        "overlay_color": "#00394a15",
+        "overlay_color": "#00394a14",
         "overlay_style": "solid",
         "gradient_direction": "to right",
         "blurred_reflection": false,
@@ -783,8 +783,14 @@
           "static": true,
           "settings": {
             "media_type": "image",
-            "image_position": "cover"
-          }
+            "image": "shopify://shop_images/dumbberry_01_9d1fb548-75e4-4a97-b63b-641ce468c25d.png",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover"
+          },
+          "blocks": {}
         },
         "content": {
           "type": "_content-without-appearance",
@@ -842,10 +848,6 @@
           ]
         }
       },
-      "block_order": [
-        "media",
-        "content"
-      ],
       "settings": {
         "media_position": "right",
         "media_width": "medium",
