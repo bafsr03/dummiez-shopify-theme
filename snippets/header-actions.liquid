@@ -109,6 +109,9 @@
         scroll-lock
         cart-summary-sticky="true"
       >
+        <div class="cart-layer cart-layer--3" aria-hidden="true"></div>
+        <div class="cart-layer cart-layer--2" aria-hidden="true"></div>
+        <div class="cart-layer cart-layer--1" aria-hidden="true"></div>
         <div class="cart-drawer__inner">
           <cart-items-component
             class="cart-items-component"
@@ -352,8 +355,10 @@
 
   .cart-drawer__dialog {
     position: fixed;
-    overflow: hidden;
-    border-radius: 0;
+    /* overflow: visible lets colour layers peek left outside the dialog box
+       while .cart-drawer__inner clips the actual cart content */
+    overflow: visible;
+    border-radius: 16px 0 0 16px;
     width: var(--sidebar-width);
     max-width: 95vw;
     height: 100%;
@@ -364,6 +369,12 @@
     background-color: var(--color-background);
   }
 
+  .cart-drawer__dialog:modal {
+    max-height: 100dvh;
+    overflow: visible;
+    border-radius: 16px 0 0 16px;
+  }
+
   .cart-items-component {
     width: 100%;
     height: 100%;
@@ -371,15 +382,12 @@
     flex-direction: column;
   }
 
-  /* Needed to ensure the drawer is full height */
-  .cart-drawer__dialog:modal {
-    max-height: 100dvh;
-    overflow-y: hidden;
-  }
-
   .cart-drawer__inner {
+    position: relative;
+    z-index: 2; /* sits above the colour layers, clipping them inside the dialog box */
     height: 100%;
     overflow: hidden;
+    border-radius: 16px 0 0 16px;
   }
 
   .cart-drawer__content {
@@ -665,5 +673,39 @@
       --cart-bubble-top: 4px;
       --cart-bubble-right: 4px;
     }
+  }
+
+  /* ── Colour layers – absolutely positioned inside the dialog (top layer)
+     .cart-drawer__inner sits above them (z-index: 2) so they are hidden
+     inside the dialog box; only the translateX'd portion that overflows
+     left is visible, rendered in the top layer above the native backdrop ── */
+  .cart-layer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    transform: translateX(0);
+    /* Close direction: same curve and duration as nav drawer layers */
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    pointer-events: none;
+    border-radius: 16px 0 0 16px;
+  }
+
+  /* Close delays – identical to nav: teal first (0ms), yellow (75ms), red last (150ms) */
+  .cart-layer--1 { background: #C42E37; transition-delay: 150ms; }
+  .cart-layer--2 { background: #F0B621; transition-delay: 75ms;  }
+  .cart-layer--3 { background: #7196A2; transition-delay: 0ms;   }
+
+  /* Open: dialog arrives (~240ms) then layers fan out one by one */
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--1 { transform: translateX(-12px); transition-delay: 240ms; }
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--2 { transform: translateX(-22px); transition-delay: 315ms; }
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--3 { transform: translateX(-32px); transition-delay: 390ms; }
+
+  /* Close: white panel waits 220ms (matching nav) so cascade is visible before it slides out */
+  .cart-drawer__dialog.dialog-closing {
+    animation-delay: 220ms;
   }
 {% endstylesheet %}

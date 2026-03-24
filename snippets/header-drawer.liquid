@@ -66,6 +66,10 @@
         {{- 'icon-close.svg' | inline_asset_content -}}
       </span>
     </summary>
+    <div class="menu-layer menu-layer--3" aria-hidden="true"></div>
+    <div class="menu-layer menu-layer--2" aria-hidden="true"></div>
+    <div class="menu-layer menu-layer--1" aria-hidden="true"></div>
+
     <div
       data-header-drawer
       class="
@@ -821,8 +825,8 @@
     transform: translateX(-100%);
     visibility: hidden;
     height: var(--drawer-height);
-    width: var(--drawer-width);
-    max-width: var(--drawer-max-width);
+    width: min(25rem, 95vw);
+    max-width: 25rem;
     z-index: var(--layer-menu-drawer);
     left: 0;
     top: 0;
@@ -833,6 +837,7 @@
     border-right: var(--style-border-drawer);
     box-shadow: var(--shadow-drawer);
     flex-direction: column;
+    border-radius: 0 16px 16px 0;
 
     @media screen and (min-width: 750px) {
       width: 25rem;
@@ -865,8 +870,11 @@
 
   .menu-drawer,
   details[open] > .menu-drawer__submenu {
-    transition: transform var(--drawer-animation-speed) ease, visibility var(--drawer-animation-speed) ease,
-      opacity var(--drawer-animation-speed) ease;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      visibility 0.4s ease,
+      opacity 0.4s ease;
+    /* Close delay: wait for all colour layers to start retracting first */
+    transition-delay: 220ms;
   }
 
   .menu-open > .menu-drawer,
@@ -876,7 +884,35 @@
     opacity: 1;
     display: flex;
     flex-direction: column;
+    /* Open with no delay — white panel leads, layers fan out behind it */
+    transition-delay: 0ms;
   }
+
+  /* ── Staggered colour layers behind the menu drawer ── */
+  .menu-layer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: min(25rem, 95vw);
+    max-width: 25rem;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.45s ease;
+    will-change: transform;
+    pointer-events: none;
+    border-radius: 0 14px 14px 0;
+  }
+
+  /* Same height, stagger only via translateX and z-index */
+  .menu-layer--1 { background: #C42E37; z-index: 17; transition-delay: 150ms; }
+  .menu-layer--2 { background: #F0B621; z-index: 16; transition-delay: 75ms;  }
+  .menu-layer--3 { background: #7196A2; z-index: 15; transition-delay: 0ms;   }
+
+  /* Open state – red appears first, teal appears last */
+  .menu-open > .menu-layer--1 { transform: translateX(12px); visibility: visible; transition-delay: 0ms;   }
+  .menu-open > .menu-layer--2 { transform: translateX(22px); visibility: visible; transition-delay: 75ms;  }
+  .menu-open > .menu-layer--3 { transform: translateX(32px); visibility: visible; transition-delay: 150ms; }
 
   .menu-drawer__inner-container {
     position: relative;
