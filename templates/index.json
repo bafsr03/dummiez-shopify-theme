@@ -611,7 +611,7 @@
               "type": "text",
               "name": "Features heading",
               "settings": {
-                "text": "<p>PUTTING THE HIGH IN RIDICULOUSLY HIGH-QUALITY INGREDIENTS</p>",
+                "text": "<p>REAL INGREDIENTS. REAL RESULTS. REALLY GOOD TIME.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
@@ -674,104 +674,52 @@
               },
               "blocks": {
                 "feat_1": {
-                  "type": "text",
+                  "type": "icon-feature",
                   "settings": {
-                    "text": "<p><strong>ALL-NATURAL</strong></p><p>No experience 'fake stuff'. Focusing on better, real ingredients for you.</p>",
-                    "width": "fill",
-                    "max_width": "none",
-                    "alignment": "center",
-                    "type_preset": "paragraph",
-                    "font": "var(--font-body--family)",
-                    "font_size": "0.875rem",
-                    "line_height": "body-relaxed",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": true,
+                    "icon_asset": "feat-all-natural.png",
+                    "title": "ALL-NATURAL",
+                    "description": "No experience 'fake stuff'. Focusing on better, real ingredients for you.",
                     "background_color": "#ffffff",
                     "corner_radius": 16,
-                    "padding-block-start": 24,
-                    "padding-block-end": 24,
-                    "padding-inline-start": 20,
-                    "padding-inline-end": 20
-                  },
-                  "blocks": {}
+                    "padding_block": 24,
+                    "padding_inline": 20
+                  }
                 },
                 "feat_2": {
-                  "type": "text",
+                  "type": "icon-feature",
                   "settings": {
-                    "text": "<p><strong>PREMIUM HEMP</strong></p><p>It's the right stuff and we're never cutting corners on the quality of our hemp.</p>",
-                    "width": "fill",
-                    "max_width": "none",
-                    "alignment": "center",
-                    "type_preset": "paragraph",
-                    "font": "var(--font-body--family)",
-                    "font_size": "0.875rem",
-                    "line_height": "body-relaxed",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": true,
+                    "icon_asset": "feat-premium-hemp.png",
+                    "title": "PREMIUM HEMP",
+                    "description": "It's the right stuff and we're never cutting corners on the quality of our hemp.",
                     "background_color": "#ffffff",
                     "corner_radius": 16,
-                    "padding-block-start": 24,
-                    "padding-block-end": 24,
-                    "padding-inline-start": 20,
-                    "padding-inline-end": 20
-                  },
-                  "blocks": {}
+                    "padding_block": 24,
+                    "padding_inline": 20
+                  }
                 },
                 "feat_3": {
-                  "type": "text",
+                  "type": "icon-feature",
                   "settings": {
-                    "text": "<p><strong>FRESH FLAVORS</strong></p><p>Imagine delighting your senses with supporting real citrus sources.</p>",
-                    "width": "fill",
-                    "max_width": "none",
-                    "alignment": "center",
-                    "type_preset": "paragraph",
-                    "font": "var(--font-body--family)",
-                    "font_size": "0.875rem",
-                    "line_height": "body-relaxed",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": true,
+                    "icon_asset": "feat-fresh-flavors.png",
+                    "title": "FRESH FLAVORS",
+                    "description": "Imagine delighting your senses with supporting real citrus sources.",
                     "background_color": "#ffffff",
                     "corner_radius": 16,
-                    "padding-block-start": 24,
-                    "padding-block-end": 24,
-                    "padding-inline-start": 20,
-                    "padding-inline-end": 20
-                  },
-                  "blocks": {}
+                    "padding_block": 24,
+                    "padding_inline": 20
+                  }
                 },
                 "feat_4": {
-                  "type": "text",
+                  "type": "icon-feature",
                   "settings": {
-                    "text": "<p><strong>LAB-TESTED</strong></p><p>Rigorously tested and levels of potency hit you perfectly and fairly, right.</p>",
-                    "width": "fill",
-                    "max_width": "none",
-                    "alignment": "center",
-                    "type_preset": "paragraph",
-                    "font": "var(--font-body--family)",
-                    "font_size": "0.875rem",
-                    "line_height": "body-relaxed",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": true,
+                    "icon_asset": "feat-lab-tested.png",
+                    "title": "LAB-TESTED",
+                    "description": "Rigorously tested and levels of potency hit you perfectly and fairly, right.",
                     "background_color": "#ffffff",
                     "corner_radius": 16,
-                    "padding-block-start": 24,
-                    "padding-block-end": 24,
-                    "padding-inline-start": 20,
-                    "padding-inline-end": 20
-                  },
-                  "blocks": {}
+                    "padding_block": 24,
+                    "padding_inline": 20
+                  }
                 }
               },
               "block_order": [

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" fill="none" stroke="#3a9fa8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" width="90" height="75">
+  <!-- Whole citrus fruit -->
+  <circle cx="110" cy="90" r="65"/>
+  <!-- Stem and leaves on whole fruit -->
+  <path d="M110 25 Q115 10 125 8"/>
+  <path d="M110 25 Q118 15 130 18 Q125 25 115 22"/>
+  <path d="M110 25 Q100 12 90 15 Q95 22 108 23"/>
+  <!-- Cross mark on whole fruit -->
+  <line x1="92" y1="72" x2="98" y2="78"/>
+  <line x1="92" y1="78" x2="98" y2="72"/>
+  <!-- Half citrus slice left -->
+  <path d="M165 160 Q185 95 240 110 Q235 180 165 160Z"/>
+  <!-- Half citrus slice right -->
+  <circle cx="215" cy="160" r="60"/>
+  <!-- Citrus segments inside slice -->
+  <path d="M215 100 L215 220"/>
+  <path d="M215 100 Q255 130 215 220"/>
+  <path d="M215 100 Q175 130 215 220"/>
+  <path d="M175 130 Q215 100 255 130"/>
+  <path d="M172 165 Q215 145 258 165"/>
+  <path d="M175 198 Q215 185 255 198"/>
+  <!-- Center of slice -->
+  <circle cx="215" cy="160" r="8"/>
+</svg>

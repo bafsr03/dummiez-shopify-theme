@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" fill="none" stroke="#3a9fa8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="80" height="80">
+  <!-- Center stem -->
+  <line x1="110" y1="200" x2="110" y2="110"/>
+  <!-- Main top leaf -->
+  <path d="M110 110 Q110 20 110 20 Q90 45 75 55 Q90 58 110 55 Q120 58 145 55 Q130 45 110 20 Z"/>
+  <!-- Upper side leaves -->
+  <path d="M110 100 Q110 100 60 60 Q65 85 85 95 Q95 98 110 95"/>
+  <path d="M110 100 Q110 100 160 60 Q155 85 135 95 Q125 98 110 95"/>
+  <!-- Middle side leaves -->
+  <path d="M110 125 Q110 125 45 100 Q55 125 80 128 Q95 130 110 125"/>
+  <path d="M110 125 Q110 125 175 100 Q165 125 140 128 Q125 130 110 125"/>
+  <!-- Lower side leaves -->
+  <path d="M110 148 Q110 148 35 140 Q50 162 80 158 Q96 156 110 148"/>
+  <path d="M110 148 Q110 148 185 140 Q170 162 140 158 Q124 156 110 148"/>
+  <!-- Center node -->
+  <circle cx="110" cy="110" r="7" stroke-width="2.5"/>
+  <!-- Root/stem bottom -->
+  <line x1="110" y1="200" x2="95" y2="215"/>
+  <line x1="110" y1="200" x2="125" y2="215"/>
+</svg>

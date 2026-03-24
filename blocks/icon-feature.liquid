@@ -1,0 +1,136 @@
+{%- doc -%}
+  Feature card with icon image, title, and description.
+  Icon is loaded from theme assets by filename.
+{%- enddoc -%}
+
+<div
+  class="icon-feature color-{{ block.settings.color_scheme }}"
+  style="
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.corner_radius }}px;
+    padding: {{ block.settings.padding_block }}px {{ block.settings.padding_inline }}px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    flex: 1;
+  "
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.icon_asset != blank -%}
+    <img
+      src="{{ block.settings.icon_asset | asset_url }}"
+      alt="{{ block.settings.title }}"
+      class="icon-feature__img"
+      width="80"
+      height="80"
+      loading="lazy"
+    >
+  {%- endif -%}
+
+  {%- if block.settings.title != blank -%}
+    <p class="icon-feature__title">
+      <strong>{{ block.settings.title }}</strong>
+    </p>
+  {%- endif -%}
+
+  {%- if block.settings.description != blank -%}
+    <p class="icon-feature__desc">{{ block.settings.description }}</p>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .group-block-content > [data-block-type="icon-feature"],
+  .group-block-content > .block-wrapper:has(.icon-feature) {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .icon-feature__img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .icon-feature__title {
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    color: var(--color-foreground-heading);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .icon-feature__desc {
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: var(--line-height--body-relaxed);
+    color: var(--color-foreground);
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Icon Feature",
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon_asset",
+      "label": "Icon filename (assets/)",
+      "info": "Filename of the icon in the theme assets folder, e.g. feat-all-natural.png"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "label": "Padding top/bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Padding left/right",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ]
+}
+{% endschema %}
