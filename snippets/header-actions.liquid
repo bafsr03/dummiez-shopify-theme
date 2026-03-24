@@ -679,6 +679,17 @@
      .cart-drawer__inner sits above them (z-index: 2) so they are hidden
      inside the dialog box; only the translateX'd portion that overflows
      left is visible, rendered in the top layer above the native backdrop ── */
+
+  @keyframes cart-fan-out {
+    from { transform: translateX(0); }
+    to   { transform: translateX(var(--cart-layer-offset)); }
+  }
+
+  @keyframes cart-retract {
+    from { transform: translateX(var(--cart-layer-offset)); }
+    to   { transform: translateX(0); }
+  }
+
   .cart-layer {
     position: absolute;
     right: 0;
@@ -687,25 +698,36 @@
     width: 100%;
     z-index: 1;
     transform: translateX(0);
-    /* Close direction: same curve and duration as nav drawer layers */
-    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     pointer-events: none;
     border-radius: 16px 0 0 16px;
   }
 
-  /* Close delays – identical to nav: teal first (0ms), yellow (75ms), red last (150ms) */
-  .cart-layer--1 { background: #C42E37; transition-delay: 150ms; }
-  .cart-layer--2 { background: #F0B621; transition-delay: 75ms;  }
-  .cart-layer--3 { background: #7196A2; transition-delay: 0ms;   }
+  .cart-layer--1 { background: #C42E37; --cart-layer-offset: -12px; }
+  .cart-layer--2 { background: #F0B621; --cart-layer-offset: -22px; }
+  .cart-layer--3 { background: #7196A2; --cart-layer-offset: -32px; }
 
-  /* Open: dialog arrives (~240ms) then layers fan out one by one */
-  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--1 { transform: translateX(-12px); transition-delay: 240ms; }
-  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--2 { transform: translateX(-22px); transition-delay: 315ms; }
-  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--3 { transform: translateX(-32px); transition-delay: 390ms; }
+  /* Open – fan out alongside the dialog slide-in, red leads then yellow then teal */
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer {
+    animation: cart-fan-out 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--1 { animation-delay: 0ms;   }
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--2 { animation-delay: 75ms;  }
+  .cart-drawer__dialog[open]:not(.dialog-closing) .cart-layer--3 { animation-delay: 150ms; }
 
-  /* Close: white panel waits 220ms (matching nav) so cascade is visible before it slides out */
-  .cart-drawer__dialog.dialog-closing {
-    animation-delay: 220ms;
+  /* Close – retract in cascade, teal first, red last */
+  .cart-drawer__dialog.dialog-closing .cart-layer {
+    animation: cart-retract 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .cart-drawer__dialog.dialog-closing .cart-layer--3 { animation-delay: 0ms;   }
+  .cart-drawer__dialog.dialog-closing .cart-layer--2 { animation-delay: 75ms;  }
+  .cart-drawer__dialog.dialog-closing .cart-layer--1 { animation-delay: 150ms; }
+
+  /* White panel waits for ALL layers to fully retract before sliding out.
+     Layer 1 (red) is last: 150ms delay + 450ms duration = 600ms total.
+     Needs 0-4-0 specificity to beat base.css .dialog-drawer[open].dialog-closing (0-3-0)
+     which resets animation-delay to 0s via the animation shorthand. */
+  .cart-drawer .cart-drawer__dialog[open].dialog-closing {
+    animation-delay: 600ms;
   }
 {% endstylesheet %}
