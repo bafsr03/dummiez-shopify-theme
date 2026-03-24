@@ -41,49 +41,146 @@
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
 
-  <div id="ageGate" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:999999;background:#000;display:flex;align-items:center;justify-content:center;">
-  <video id="ageGateVideo" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transform:translateZ(0);-webkit-transform:translateZ(0);" autoplay muted playsinline loop webkit-playsinline preload="auto">
-    <source src="https://cdn.shopify.com/videos/c/o/v/1b7767ae3b924b67b1f9f0b5a2ad41a8.mp4" type="video/mp4">
-  </video>
-  
-  <div style="position:relative;z-index:2;text-align:center;color:#fff;padding:2rem;">
-    <h1 style="font-size:3rem;margin:0 0 1rem 0;">Are you 21 or older?</h1>
-    <p style="font-size:1.2rem;margin:0 0 3rem 0;">You must be of legal age to enter this site</p>
-    
-    <div style="display:flex;gap:2rem;justify-content:center;">
-      <button onclick="document.getElementById('ageGate').style.display='none';sessionStorage.setItem('ageOK','1');" style="padding:1.25rem 3rem;font-size:1.25rem;border:3px solid #fff;background:transparent;color:#fff;cursor:pointer;text-transform:uppercase;">Yes, I'm 21+</button>
-      <button onclick="window.location.href='https://google.com';" style="padding:1.25rem 3rem;font-size:1.25rem;border:3px solid #fff;background:transparent;color:#fff;cursor:pointer;text-transform:uppercase;">No, I'm not</button>
+  <style>
+    #ageGate {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      animation: ageGateFadeIn 0.4s ease-out 0.1s forwards;
+    }
+    @keyframes ageGateFadeIn {
+      to { opacity: 1; }
+    }
+    #ageGateCard {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+      transform: translateY(16px) scale(0.97);
+      animation: ageGateCardIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    }
+    @keyframes ageGateCardIn {
+      to { transform: translateY(0) scale(1); }
+    }
+    #ageGateMedia {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      background: #000;
+    }
+    #ageGateVideo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #ageGateContent {
+      padding: 2rem 2rem 2.25rem;
+      text-align: center;
+    }
+    #ageGateContent h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1abcc8;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.6rem;
+      line-height: 1.15;
+    }
+    #ageGateContent p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 0 0 1.75rem;
+      line-height: 1.55;
+    }
+    #ageGateButtons {
+      display: flex;
+      gap: 0.875rem;
+    }
+    #ageGateButtons button {
+      flex: 1;
+      padding: 0.875rem 1rem;
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+      border: 2px solid #1abcc8;
+    }
+    #ageGateButtons button:hover {
+      transform: translateY(-1px);
+      opacity: 0.88;
+    }
+    #ageGateYes {
+      background: #1abcc8;
+      color: #fff;
+    }
+    #ageGateNo {
+      background: #fff;
+      color: #1abcc8;
+    }
+  </style>
+
+  <div id="ageGate">
+    <div id="ageGateCard">
+      <div id="ageGateMedia">
+        <video id="ageGateVideo" autoplay muted playsinline loop webkit-playsinline preload="auto">
+          <source src="https://cdn.shopify.com/videos/c/o/v/1b7767ae3b924b67b1f9f0b5a2ad41a8.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div id="ageGateContent">
+        <h2>Are you 21 or older?</h2>
+        <p>You must be at least 21 years of age to enter this site.</p>
+        <div id="ageGateButtons">
+          <button id="ageGateYes">Yes</button>
+          <button id="ageGateNo">No</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-if(sessionStorage.getItem('ageOK')==='1'){
-  document.getElementById('ageGate').style.display='none';
-} else {
-  // Force video to play on iOS
-  var video = document.getElementById('ageGateVideo');
-  if(video){
-    video.muted = true;
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-    
-    // Try to play with a slight delay
-    setTimeout(function(){
-      var playPromise = video.play();
-      if(playPromise !== undefined){
-        playPromise.catch(function(error){
-          // Auto-play was prevented, try again on any touch
-          document.addEventListener('touchstart', function(){
-            video.play();
-          }, {once: true});
-        });
+  <script>
+    (function () {
+      var gate = document.getElementById('ageGate');
+      if (sessionStorage.getItem('ageOK') === '1') {
+        gate.style.display = 'none';
+        return;
       }
-    }, 100);
-  }
-}
-</script>
+      document.getElementById('ageGateYes').addEventListener('click', function () {
+        gate.style.opacity = '0';
+        gate.style.transition = 'opacity 0.25s ease';
+        setTimeout(function () { gate.style.display = 'none'; }, 260);
+        sessionStorage.setItem('ageOK', '1');
+      });
+      document.getElementById('ageGateNo').addEventListener('click', function () {
+        window.location.href = 'https://google.com';
+      });
+      // iOS video autoplay
+      var video = document.getElementById('ageGateVideo');
+      if (video) {
+        video.muted = true;
+        setTimeout(function () {
+          var p = video.play();
+          if (p) p.catch(function () {
+            document.addEventListener('touchstart', function () { video.play(); }, { once: true });
+          });
+        }, 100);
+      }
+    })();
+  </script>
     <div id="header-group">
       {% sections 'header-group' %}
     </div>

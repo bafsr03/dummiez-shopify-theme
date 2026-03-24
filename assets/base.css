@@ -4037,3 +4037,58 @@ text-component {
     font-size: max(1rem, 100%);
   }
 }
+
+/* ================================================================
+   PAGE LOAD & SCROLL-REVEAL ANIMATIONS
+   Managed by assets/page-animations.js
+   ================================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---- Section scroll-reveal base state ---- */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- Stagger grid items ---- */
+  /* Items start hidden; once the parent section is revealed they cascade in */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Each child uses its own stagger index set by JS */
+    transition-delay: calc(var(--stagger-i, 0) * 75ms);
+  }
+
+  .reveal-on-scroll.is-revealed .reveal-stagger > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- Header entrance on page load ---- */
+  @keyframes headerSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  body.page-loaded #header-group {
+    animation: headerSlideDown 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
