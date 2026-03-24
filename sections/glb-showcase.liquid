@@ -1,0 +1,188 @@
+
+<script
+  type="module"
+  src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"
+></script>
+
+<div
+  id="GlbShowcase-{{ section.id }}"
+  class="glb-showcase color-{{ section.settings.color_scheme }} section"
+  style="
+    padding-block-start: {{ section.settings.padding_top }}px;
+    padding-block-end: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="glb-showcase__inner page-width">
+
+    <div class="glb-showcase__model-col">
+      <model-viewer
+        src="{{ 'dummiez-3d-model.glb' | asset_url }}"
+        alt="{{ section.settings.model_alt }}"
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="30deg"
+        camera-controls
+        shadow-intensity="1"
+        exposure="1"
+        class="glb-showcase__viewer"
+      ></model-viewer>
+    </div>
+
+    <div class="glb-showcase__content-col">
+      {%- if section.settings.heading != blank -%}
+        <p class="glb-showcase__heading">{{ section.settings.heading }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="glb-showcase__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="button"
+          {% if section.settings.button_new_tab %}target="_blank" rel="noopener"{% endif %}
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+  .glb-showcase__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .glb-showcase__viewer {
+    width: 100%;
+    height: 480px;
+    background: transparent;
+  }
+
+  .glb-showcase__content-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .glb-showcase__heading {
+    font-family: var(--font-heading--family);
+    font-size: var(--font-size--h2);
+    line-height: var(--line-height--display-tight);
+    text-transform: uppercase;
+    color: var(--color-foreground-heading);
+    margin: 0;
+  }
+
+  .glb-showcase__subtext {
+    font-family: var(--font-body--family);
+    font-size: 1.125rem;
+    line-height: var(--line-height--body-relaxed);
+    color: var(--color-foreground);
+    margin: 0;
+    max-width: 36ch;
+  }
+
+  @media screen and (max-width: 749px) {
+    .glb-showcase__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .glb-showcase__viewer {
+      height: 340px;
+    }
+
+    .glb-showcase__content-col {
+      align-items: center;
+      text-align: center;
+    }
+
+    .glb-showcase__heading,
+    .glb-showcase__subtext {
+      text-align: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "3D Model Showcase",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Premium hemp-infused edibles for the modern life."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab",
+      "label": "Open button link in new tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "model_alt",
+      "label": "Model alt text",
+      "default": "Dummiez 3D product model"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-6"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "3D Model Showcase"
+    }
+  ]
+}
+{% endschema %}

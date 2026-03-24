@@ -15,6 +15,11 @@
   {% endif %}
 
   style="
+    {% if section.settings.side_margin and section.settings.side_margin > 0 %}
+      margin-inline: {{ section.settings.side_margin }}px;
+      border-radius: {{ section.settings.border_radius | default: 0 }}px;
+      overflow: hidden;
+    {% endif %}
     {% if section.settings.section_height == 'custom' %}
       --section-min-height: {{ section.settings.section_height_custom }}svh;
     {% elsif section.settings.section_height == 'full-screen' %}
