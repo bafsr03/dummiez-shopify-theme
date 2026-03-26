@@ -11,11 +11,44 @@
   "sections": {
     "coa": {
       "type": "coa-page",
+      "blocks": {
+        "coa-gas-berry": {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Rosin Roll — Gas Berry",
+            "description": "Premium live rosin preroll. Gas Berry terpene profile — earthy, fuel-forward with a berry finish. Tested by PharmLabs San Diego.",
+            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126550-rosin-roll-gas-berry.pdf?lod=false",
+            "badge": "Rosin Roll"
+          }
+        },
+        "coa-tropical-fusion": {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Rosin Roll — Tropical Fusion",
+            "description": "Premium live rosin preroll. Tropical Fusion terpene profile — sweet citrus, mango, and tropical fruit notes. Tested by PharmLabs San Diego.",
+            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126552-rosin-roll-tropical-fusion.pdf?lod=false",
+            "badge": "Rosin Roll"
+          }
+        },
+        "coa-highkey-mimosa": {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Highkey — Mimosa",
+            "description": "Premium preroll. Mimosa strain — bright citrus and champagne terpene profile. Tested by PharmLabs San Diego.",
+            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126554-highkey-mimosa.pdf?lod=false",
+            "badge": "Highkey"
+          }
+        }
+      },
+      "block_order": ["coa-gas-berry", "coa-tropical-fusion", "coa-highkey-mimosa"],
       "settings": {
-        "collection": "all",
+        "title": "Certificates of Analysis",
+        "subtitle": "All Dummiez products are third-party lab tested. Tap any product below to download its Certificate of Analysis.",
+        "show_page_title": true,
+        "show_page_content": false,
         "color_scheme": "scheme-1",
-        "padding-block-start": 60,
-        "padding-block-end": 80
+        "padding_top": 60,
+        "padding_bottom": 80
       }
     }
   },

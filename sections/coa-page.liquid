@@ -2,249 +2,345 @@
 <div
   class="coa-page color-{{ section.settings.color_scheme }}"
   style="
-    padding-block-start: {{ section.settings.padding-block-start }}px;
-    padding-block-end: {{ section.settings.padding-block-end }}px;
+    padding-block-start: {{ section.settings.padding_top }}px;
+    padding-block-end: {{ section.settings.padding_bottom }}px;
   "
 >
   <div class="coa-page__inner page-width">
 
-    <header class="coa-page__header">
-      <h1 class="coa-page__title">
-        {%- if section.settings.show_page_title and page.title != blank -%}
-          {{ page.title }}
-        {%- else -%}
-          {{ section.settings.title }}
-        {%- endif -%}
-      </h1>
-      <div class="coa-page__accent-bar"></div>
-      {%- if section.settings.subtitle != blank -%}
-        <p class="coa-page__subtitle">
-          {{ section.settings.subtitle }}
-        </p>
-      {%- endif -%}
-    </header>
+    <div class="coa-page__layout">
 
-    {%- if section.settings.show_page_content and page.content != blank -%}
-      <div class="coa-page__admin-content rte">
-        {{ page.content }}
-      </div>
-    {%- endif -%}
+      {%- comment -%} LEFT COLUMN: header + accordion list {%- endcomment -%}
+      <div class="coa-page__content">
 
-    {%- assign coa_collection = collections[section.settings.collection] -%}
-    {%- assign has_any_coa = false -%}
-
-    {%- if coa_collection != blank and coa_collection.products.size > 0 -%}
-      <div class="coa-page__grid">
-        {%- for product in coa_collection.products -%}
-          {%- assign coa_url = product.metafields.custom.coa_pdf -%}
-          {%- if coa_url != blank -%}
-            {%- assign has_any_coa = true -%}
-            <div class="coa-page__card">
-              {%- if product.featured_image -%}
-                <div class="coa-page__card-image">
-                  {%- assign product_title = product.title | escape -%}
-                  {{
-                    product.featured_image
-                    | image_url: width: 200
-                    | image_tag:
-                      loading: 'lazy',
-                      alt: product_title,
-                      class: 'coa-page__card-img'
-                  }}
-                </div>
-              {%- endif -%}
-              <div class="coa-page__card-info">
-                <h2 class="coa-page__card-title">{{ product.title }}</h2>
-                {%- if product.metafields.descriptors.subtitle.value != blank -%}
-                  <p class="coa-page__card-subtitle">{{ product.metafields.descriptors.subtitle.value }}</p>
-                {%- endif -%}
-                <a
-                  href="{{ coa_url }}"
-                  class="coa-page__download-btn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Download COA for {{ product.title | escape }}"
-                >
-                  <span class="coa-page__download-icon" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14 2 14 8 20 8"/>
-                      <line x1="12" y1="18" x2="12" y2="12"/>
-                      <line x1="9" y1="15" x2="15" y2="15"/>
-                    </svg>
-                  </span>
-                  Download COA
-                </a>
-              </div>
-            </div>
+        <header class="coa-page__header">
+          <h1 class="coa-page__title">
+            {%- if section.settings.show_page_title and page.title != blank -%}
+              {{ page.title }}
+            {%- else -%}
+              {{ section.settings.title }}
+            {%- endif -%}
+          </h1>
+          <div class="coa-page__accent-bar"></div>
+          {%- if section.settings.subtitle != blank -%}
+            <p class="coa-page__subtitle">{{ section.settings.subtitle }}</p>
           {%- endif -%}
-        {%- endfor -%}
+        </header>
+
+        {%- if section.settings.show_page_content and page.content != blank -%}
+          <div class="coa-page__admin-content rte">{{ page.content }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="coa-page__accordion-list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'coa_entry' -%}
+                <details class="coa-entry" {{ block.shopify_attributes }}>
+                  <summary class="coa-entry__summary">
+                    <span class="coa-entry__summary-left">
+                      {%- if block.settings.badge != blank -%}
+                        <span class="coa-entry__badge">{{ block.settings.badge }}</span>
+                      {%- endif -%}
+                      <span class="coa-entry__title">{{ block.settings.title }}</span>
+                    </span>
+                    <span class="coa-entry__chevron" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="coa-entry__body">
+                    {%- if block.settings.description != blank -%}
+                      <p class="coa-entry__description">{{ block.settings.description }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.pdf_url != blank -%}
+                      <a
+                        href="{{ block.settings.pdf_url }}"
+                        class="coa-entry__download-btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Download COA for {{ block.settings.title | escape }}"
+                      >
+                        <span class="coa-entry__download-icon" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="12" y1="18" x2="12" y2="12"/>
+                            <line x1="9" y1="15" x2="15" y2="15"/>
+                          </svg>
+                        </span>
+                        Download COA
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </details>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <p class="coa-page__empty">COAs are being uploaded. Check back soon.</p>
+        {%- endif -%}
+
       </div>
 
-      {%- if has_any_coa == false -%}
-        <p class="coa-page__empty">COAs are being uploaded. Check back soon.</p>
+      {%- comment -%} RIGHT COLUMN: image panel {%- endcomment -%}
+      {%- if section.settings.image != blank -%}
+        <div class="coa-page__image-panel">
+          <div class="coa-page__image-wrap">
+            {{
+              section.settings.image
+              | image_url: width: 900
+              | image_tag:
+                loading: 'lazy',
+                class: 'coa-page__image',
+                alt: section.settings.image.alt | default: section.settings.title
+            }}
+            {%- if section.settings.image_caption != blank -%}
+              <p class="coa-page__image-caption">{{ section.settings.image_caption }}</p>
+            {%- endif -%}
+          </div>
+        </div>
       {%- endif -%}
 
-    {%- else -%}
-      <p class="coa-page__empty">COAs are being uploaded. Check back soon.</p>
-    {%- endif -%}
-
+    </div>
   </div>
 </div>
 
 {% stylesheet %}
   @keyframes coaPageFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: none; }
   }
 
   .coa-page {
-    min-height: 60vh;
+    min-height: 50vh;
   }
 
   .coa-page__inner {
-    max-width: 1000px;
-    margin-inline: auto;
     padding-inline: var(--padding-xl);
     animation: coaPageFadeIn 0.5s ease both;
   }
 
-  .coa-page__admin-content {
-    margin-bottom: 3rem;
-    line-height: 1.6;
+  /* ── Two-column layout ── */
+
+  .coa-page__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
   }
 
-  .coa-page__admin-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+  @media screen and (min-width: 990px) {
+    .coa-page__layout {
+      grid-template-columns: 1fr 420px;
+      gap: 4rem;
+      align-items: center;
+    }
   }
+
+  /* ── Header ── */
 
   .coa-page__header {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
 
   .coa-page__title {
-    font-family: var(--font-primary--family);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: var(--font-weight-bold);
-    line-height: 1.1;
-    margin: 0 0 0.6rem;
+    margin: 0 0 0.5rem;
     color: var(--color-foreground);
   }
 
   .coa-page__accent-bar {
     width: 60px;
-    height: 5px;
-    background: #fef824;
-    border-radius: 3px;
+    height: 4px;
+    background: var(--color-primary);
+    border-radius: 2px;
     margin-bottom: 1rem;
     transition: width 0.4s ease;
   }
 
   .coa-page__header:hover .coa-page__accent-bar {
-    width: 120px;
+    width: 110px;
   }
 
   .coa-page__subtitle {
     font-size: var(--font-paragraph--size);
     color: rgb(var(--color-foreground-rgb) / 0.7);
-    max-width: 600px;
+    max-width: 560px;
     line-height: 1.6;
     margin: 0;
   }
 
-  .coa-page__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+  .coa-page__admin-content {
+    margin-bottom: 2rem;
+    line-height: 1.6;
   }
 
-  .coa-page__card {
+  /* ── Accordion list ── */
+
+  .coa-page__accordion-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    background: rgb(var(--color-foreground-rgb) / 0.05);
-    border: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
-    border-radius: var(--style-border-radius-buttons, 8px);
+    gap: 0;
+    border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
+  }
+
+  /* ── Individual entry ── */
+
+  .coa-entry {
+    border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
     overflow: hidden;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-    animation: coaPageFadeIn 0.5s ease both;
   }
 
-  .coa-page__card:hover {
-    border-color: #fef824;
-    transform: translateY(-3px);
-  }
-
-  .coa-page__card-image {
-    aspect-ratio: 1;
-    overflow: hidden;
-    background: rgb(var(--color-foreground-rgb) / 0.05);
-  }
-
-  .coa-page__card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .coa-page__card:hover .coa-page__card-img {
-    transform: scale(1.04);
-  }
-
-  .coa-page__card-info {
+  .coa-entry__summary {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem 1rem 1.25rem;
-    flex: 1;
-  }
-
-  .coa-page__card-title {
-    font-family: var(--font-primary--family);
-    font-size: 1.1rem;
-    font-weight: var(--font-weight-semibold);
-    margin: 0;
-    color: var(--color-foreground);
-  }
-
-  .coa-page__card-subtitle {
-    font-size: var(--font-paragraph-small--size);
-    color: rgb(var(--color-foreground-rgb) / 0.6);
-    margin: 0;
-  }
-
-  .coa-page__download-btn {
-    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: auto;
-    padding: 10px 18px;
-    background: #000;
-    color: #fef824;
-    border: 2px solid #fef824;
-    border-radius: var(--style-border-radius-buttons, 4px);
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 0.25rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: color 0.2s ease;
+  }
+
+  .coa-entry__summary::-webkit-details-marker { display: none; }
+
+  .coa-entry__summary:hover {
+    color: var(--color-primary);
+  }
+
+  .coa-entry__summary-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .coa-entry__badge {
+    display: inline-block;
+    padding: 2px 10px;
+    background: var(--color-primary);
+    color: var(--color-background);
+    border-radius: 100px;
+    font-size: 0.7rem;
     font-family: var(--font-primary--family);
-    font-size: 0.9rem;
     font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    width: fit-content;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  .coa-page__download-btn:hover {
-    background: #fef824;
-    color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(254, 248, 36, 0.3);
+  .coa-entry__title {
+    font-family: var(--font-h3--family, var(--font-h2--family));
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: inherit;
   }
 
-  .coa-page__download-icon {
+  .coa-entry__chevron {
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    transition: transform 0.3s ease, color 0.2s ease;
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+  }
+
+  .coa-entry[open] .coa-entry__chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+
+  .coa-entry__body {
+    padding: 0.25rem 0.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: coaPageFadeIn 0.25s ease both;
+  }
+
+  .coa-entry__description {
+    font-size: var(--font-paragraph--size);
+    color: rgb(var(--color-foreground-rgb) / 0.7);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 520px;
+  }
+
+  .coa-entry__download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: var(--color-primary-button-background);
+    color: var(--color-primary-button-text);
+    border: 2px solid var(--color-primary-button-border);
+    border-radius: var(--style-border-radius-buttons-primary);
+    font-family: var(--font-primary--family);
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .coa-entry__download-btn:hover {
+    background: var(--color-primary-button-hover-background);
+    color: var(--color-primary-button-hover-text);
+    border-color: var(--color-primary-button-hover-border);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgb(var(--color-primary-rgb) / 0.3);
+  }
+
+  .coa-entry__download-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Right image panel ── */
+
+  .coa-page__image-panel {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .coa-page__image-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .coa-page__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media screen and (min-width: 990px) {
+    .coa-page__image {
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+  }
+
+  .coa-page__image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.55));
+    color: #fff;
+    font-size: var(--font-paragraph-small--size);
+    margin: 0;
   }
 
   .coa-page__empty {
@@ -252,11 +348,61 @@
     font-style: italic;
     margin-top: 2rem;
   }
+
+  /* ── Mobile: image first ── */
+  @media screen and (max-width: 989px) {
+    .coa-page__layout {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .coa-page__image-panel {
+      position: static;
+    }
+    .coa-page__image-wrap {
+      border-radius: 12px;
+    }
+    @media screen and (min-width: 750px) {
+      .coa-page__image {
+        aspect-ratio: 16 / 7;
+      }
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "COA Page",
+  "blocks": [
+    {
+      "type": "coa_entry",
+      "name": "COA Entry",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product name",
+          "default": "Product Name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Brief description",
+          "default": "Third-party lab tested. Tap to view and download the Certificate of Analysis."
+        },
+        {
+          "type": "url",
+          "id": "pdf_url",
+          "label": "COA PDF link"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge label (optional)",
+          "info": "Short label shown next to the title, e.g. \"New\" or \"Rosin Roll\""
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "text",
@@ -268,7 +414,7 @@
       "type": "textarea",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "All Dummiez products are third-party lab tested. Download the Certificate of Analysis for any product below."
+      "default": "All Dummiez products are third-party lab tested. Tap any product below to download its Certificate of Analysis."
     },
     {
       "type": "checkbox",
@@ -280,13 +426,17 @@
       "type": "checkbox",
       "id": "show_page_content",
       "label": "Show content from Page editor",
-      "default": true
+      "default": false
     },
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection to display COAs from",
-      "info": "Only products with a 'custom.coa_pdf' metafield set will appear."
+      "type": "image_picker",
+      "id": "image",
+      "label": "Right panel image"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Image caption (optional)"
     },
     {
       "type": "color_scheme",
@@ -300,7 +450,7 @@
     },
     {
       "type": "range",
-      "id": "padding-block-start",
+      "id": "padding_top",
       "label": "Top padding",
       "min": 0,
       "max": 120,
@@ -310,7 +460,7 @@
     },
     {
       "type": "range",
-      "id": "padding-block-end",
+      "id": "padding_bottom",
       "label": "Bottom padding",
       "min": 0,
       "max": 120,
@@ -321,7 +471,36 @@
   ],
   "presets": [
     {
-      "name": "COA Page"
+      "name": "COA Page",
+      "blocks": [
+        {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Rosin Roll — Gas Berry",
+            "description": "Premium live rosin preroll. Gas Berry terpene profile — earthy, fuel-forward with a berry finish. Tested by PharmLabs San Diego.",
+            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126550-rosin-roll-gas-berry.pdf?lod=false",
+            "badge": "Rosin Roll"
+          }
+        },
+        {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Rosin Roll — Tropical Fusion",
+            "description": "Premium live rosin preroll. Tropical Fusion terpene profile — sweet citrus, mango, and tropical fruit notes. Tested by PharmLabs San Diego.",
+            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126552-rosin-roll-tropical-fusion.pdf?lod=false",
+            "badge": "Rosin Roll"
+          }
+        },
+        {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Highkey — Mimosa",
+            "description": "Premium preroll. Mimosa strain — bright citrus and champagne terpene profile. Tested by PharmLabs San Diego.",
+            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126554-highkey-mimosa.pdf?lod=false",
+            "badge": "Highkey"
+          }
+        }
+      ]
     }
   ]
 }
