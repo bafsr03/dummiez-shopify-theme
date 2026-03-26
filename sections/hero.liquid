@@ -548,6 +548,11 @@
           camera-orbit="0deg 90deg auto"
           min-camera-orbit="-Infinity 90deg auto"
           max-camera-orbit="Infinity 90deg auto"
+          tone-mapping="commerce"
+          exposure="{{ section.settings.glb_exposure | default: 1.2 }}"
+          environment-image="neutral"
+          shadow-intensity="1"
+          shadow-softness="0.5"
           interaction-prompt="none"
           class="hero__glb-viewer"
         ></model-viewer>
@@ -854,6 +859,17 @@
       "label": "3D model filename",
       "default": "dummiez.glb",
       "info": "Filename of the .glb file in your theme assets (e.g. dummiez.glb). Upload new files via Online Store → Themes → Edit code → Assets.",
+      "visible_if": "{{ section.settings.show_glb_model }}"
+    },
+    {
+      "type": "range",
+      "id": "glb_exposure",
+      "label": "Model exposure",
+      "min": 0.5,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.2,
+      "info": "Increase to brighten, decrease if too washed out.",
       "visible_if": "{{ section.settings.show_glb_model }}"
     },
     {
