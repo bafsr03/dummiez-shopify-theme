@@ -536,13 +536,18 @@
       {% content_for 'blocks' %}
     </div>
     {%- if section.settings.show_glb_model -%}
+      {%- assign glb_filename = section.settings.glb_model | default: 'dummiez.glb' -%}
+      {%- assign glb_src = glb_filename | asset_url -%}
       <div class="hero__glb-overlay">
         <model-viewer
-          src="{{ 'dummiez-3d-model.glb' | asset_url }}"
+          src="{{ glb_src }}"
           alt="Dummiez 3D product model"
           auto-rotate
           auto-rotate-delay="0"
           rotation-per-second="25deg"
+          camera-orbit="0deg 90deg auto"
+          min-camera-orbit="-Infinity 90deg auto"
+          max-camera-orbit="Infinity 90deg auto"
           interaction-prompt="none"
           class="hero__glb-viewer"
         ></model-viewer>
@@ -785,11 +790,15 @@
     height: 100%;
     background: transparent;
     --progress-bar-height: 0px;
+    pointer-events: auto;
   }
 
   @media screen and (max-width: 749px) {
     .hero__glb-overlay {
-      display: none;
+      width: 100%;
+      height: 50%;
+      bottom: 0;
+      top: auto;
     }
   }
 {% endstylesheet %}
@@ -836,8 +845,16 @@
     {
       "type": "checkbox",
       "id": "show_glb_model",
-      "label": "Show 3D model animation",
+      "label": "Show 3D model",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "glb_model",
+      "label": "3D model filename",
+      "default": "dummiez.glb",
+      "info": "Filename of the .glb file in your theme assets (e.g. dummiez.glb). Upload new files via Online Store → Themes → Edit code → Assets.",
+      "visible_if": "{{ section.settings.show_glb_model }}"
     },
     {
       "type": "header",
