@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "coa": {
@@ -15,39 +6,76 @@
         "coa-gas-berry": {
           "type": "coa_entry",
           "settings": {
-            "title": "Rosin Roll — Gas Berry",
-            "description": "Premium live rosin preroll. Gas Berry terpene profile — earthy, fuel-forward with a berry finish. Tested by PharmLabs San Diego.",
-            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126550-rosin-roll-gas-berry.pdf?lod=false",
-            "badge": "Rosin Roll"
+            "title": "Hash Hole — Gas Berry",
+            "badge": "Hash Hole",
+            "description": "Flower preroll. Gas Berry terpene profile — earthy, fuel-forward with a sweet berry finish. Moisture: 7.8% · Water Activity: 0.55",
+            "total_thc": "45.07%",
+            "thca": "51.32%",
+            "cbd": "1.64%",
+            "d8_thc": "",
+            "lab_name": "PharmLabs San Diego",
+            "sample_id": "SD251103-032",
+            "test_date": "Nov 3, 2025",
+            "pdf_filename": "126550-dummiez-hash-hole-gas-berry.pdf",
+            "pdf_url": ""
           }
         },
         "coa-tropical-fusion": {
           "type": "coa_entry",
           "settings": {
-            "title": "Rosin Roll — Tropical Fusion",
-            "description": "Premium live rosin preroll. Tropical Fusion terpene profile — sweet citrus, mango, and tropical fruit notes. Tested by PharmLabs San Diego.",
-            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126552-rosin-roll-tropical-fusion.pdf?lod=false",
-            "badge": "Rosin Roll"
+            "title": "Hash Hole — Tropical Fusion",
+            "badge": "Hash Hole",
+            "description": "Flower preroll. Tropical Fusion terpene profile — sweet citrus, mango, and tropical fruit notes. Moisture: 7.6% · Water Activity: 0.53",
+            "total_thc": "50.47%",
+            "thca": "57.48%",
+            "cbd": "1.73%",
+            "d8_thc": "",
+            "lab_name": "PharmLabs San Diego",
+            "sample_id": "SD251103-034",
+            "test_date": "Nov 3, 2025",
+            "pdf_filename": "126552-dummiez-hash-hole-tropical-fusion.pdf",
+            "pdf_url": ""
           }
         },
-        "coa-highkey-mimosa": {
+        "coa-mimosa": {
           "type": "coa_entry",
           "settings": {
-            "title": "Highkey — Mimosa",
-            "description": "Premium preroll. Mimosa strain — bright citrus and champagne terpene profile. Tested by PharmLabs San Diego.",
-            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126554-highkey-mimosa.pdf?lod=false",
-            "badge": "Highkey"
+            "title": "Hash Hole — Mimosa",
+            "badge": "Hash Hole",
+            "description": "Flower preroll. Mimosa strain — bright citrus and champagne terpene profile. Moisture: 8.0% · Water Activity: 0.56",
+            "total_thc": "42.27%",
+            "thca": "48.14%",
+            "cbd": "1.94%",
+            "d8_thc": "",
+            "lab_name": "PharmLabs San Diego",
+            "sample_id": "SD251103-036",
+            "test_date": "Nov 3, 2025",
+            "pdf_filename": "126554-dummiez-hash-hole-mimosa.pdf",
+            "pdf_url": ""
+          }
+        },
+        "coa-edibles-batch1": {
+          "type": "coa_entry",
+          "settings": {
+            "title": "Dummiez Edibles — Batch #1",
+            "badge": "Edible",
+            "description": "Hemp-derived edible. 5 servings per unit (11.16g each). Total unit weight: 55.78g. Δ9-THCP also present at 0.06%.",
+            "total_thc": "0.30%",
+            "thca": "",
+            "cbd": "0.56%",
+            "d8_thc": "3.41%",
+            "lab_name": "PharmLabs San Diego",
+            "sample_id": "SD251211-028",
+            "test_date": "Dec 11, 2025",
+            "pdf_filename": "Dummiez Edibles Batch #1.pdf",
+            "pdf_url": ""
           }
         }
       },
-      "block_order": [
-        "coa-gas-berry",
-        "coa-tropical-fusion",
-        "coa-highkey-mimosa"
-      ],
+      "block_order": ["coa-gas-berry", "coa-tropical-fusion", "coa-mimosa", "coa-edibles-batch1"],
       "settings": {
         "title": "Certificates of Analysis",
-        "subtitle": "All Dummiez products are third-party lab tested. Tap any product below to download its Certificate of Analysis.",
+        "subtitle": "All Dummiez products are third-party lab tested. Tap any product below to view results and download its Certificate of Analysis.",
         "show_page_title": true,
         "show_page_content": false,
         "image": "shopify://shop_images/Dumiez-5.jpg",

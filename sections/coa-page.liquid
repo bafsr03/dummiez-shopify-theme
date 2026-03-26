@@ -35,6 +35,15 @@
           <div class="coa-page__accordion-list">
             {%- for block in section.blocks -%}
               {%- if block.type == 'coa_entry' -%}
+
+                {%- comment -%} Build the PDF URL — prefer asset file, fall back to external URL {%- endcomment -%}
+                {%- assign pdf_href = '' -%}
+                {%- if block.settings.pdf_filename != blank -%}
+                  {%- assign pdf_href = block.settings.pdf_filename | asset_url -%}
+                {%- elsif block.settings.pdf_url != blank -%}
+                  {%- assign pdf_href = block.settings.pdf_url -%}
+                {%- endif -%}
+
                 <details class="coa-entry" {{ block.shopify_attributes }}>
                   <summary class="coa-entry__summary">
                     <span class="coa-entry__summary-left">
@@ -49,20 +58,74 @@
                       </svg>
                     </span>
                   </summary>
+
                   <div class="coa-entry__body">
+
+                    {%- comment -%} Cannabinoid stat chips {%- endcomment -%}
+                    {%- assign has_stats = false -%}
+                    {%- if block.settings.total_thc != blank or block.settings.thca != blank or block.settings.cbd != blank or block.settings.d8_thc != blank -%}
+                      {%- assign has_stats = true -%}
+                    {%- endif -%}
+
+                    {%- if has_stats -%}
+                      <div class="coa-entry__stats">
+                        {%- if block.settings.total_thc != blank -%}
+                          <div class="coa-stat">
+                            <span class="coa-stat__label">Total THC</span>
+                            <span class="coa-stat__value">{{ block.settings.total_thc }}</span>
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings.thca != blank -%}
+                          <div class="coa-stat">
+                            <span class="coa-stat__label">THCa</span>
+                            <span class="coa-stat__value">{{ block.settings.thca }}</span>
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings.cbd != blank -%}
+                          <div class="coa-stat">
+                            <span class="coa-stat__label">CBD</span>
+                            <span class="coa-stat__value">{{ block.settings.cbd }}</span>
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings.d8_thc != blank -%}
+                          <div class="coa-stat">
+                            <span class="coa-stat__label">Δ8-THC</span>
+                            <span class="coa-stat__value">{{ block.settings.d8_thc }}</span>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
                     {%- if block.settings.description != blank -%}
                       <p class="coa-entry__description">{{ block.settings.description }}</p>
                     {%- endif -%}
-                    {%- if block.settings.pdf_url != blank -%}
+
+                    {%- comment -%} Lab info row {%- endcomment -%}
+                    {%- assign has_lab = false -%}
+                    {%- if block.settings.lab_name != blank or block.settings.sample_id != blank or block.settings.test_date != blank -%}
+                      {%- assign has_lab = true -%}
+                    {%- endif -%}
+                    {%- if has_lab -%}
+                      <div class="coa-entry__lab-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11m0 0H5a2 2 0 0 1-2-2V9m6 5h10a2 2 0 0 0 2-2V9m0 0H3"/></svg>
+                        <span>
+                          {%- if block.settings.lab_name != blank -%}{{ block.settings.lab_name }}{%- endif -%}
+                          {%- if block.settings.sample_id != blank -%} &middot; {{ block.settings.sample_id }}{%- endif -%}
+                          {%- if block.settings.test_date != blank -%} &middot; {{ block.settings.test_date }}{%- endif -%}
+                        </span>
+                      </div>
+                    {%- endif -%}
+
+                    {%- if pdf_href != blank -%}
                       <a
-                        href="{{ block.settings.pdf_url }}"
+                        href="{{ pdf_href }}"
                         class="coa-entry__download-btn"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Download COA for {{ block.settings.title | escape }}"
                       >
                         <span class="coa-entry__download-icon" aria-hidden="true">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                             <polyline points="14 2 14 8 20 8"/>
                             <line x1="12" y1="18" x2="12" y2="12"/>
@@ -72,11 +135,17 @@
                         Download COA
                       </a>
                     {%- endif -%}
+
                   </div>
                 </details>
               {%- endif -%}
             {%- endfor -%}
           </div>
+
+          <p class="coa-page__lab-note">
+            All products tested by <strong>PharmLabs San Diego</strong> &middot; ISO/IEC 17025:2017 Acc. #85368
+          </p>
+
         {%- else -%}
           <p class="coa-page__empty">COAs are being uploaded. Check back soon.</p>
         {%- endif -%}
@@ -132,8 +201,8 @@
 
   @media screen and (min-width: 990px) {
     .coa-page__layout {
-      grid-template-columns: 1fr 420px;
-      gap: 4rem;
+      grid-template-columns: 1fr 400px;
+      gap: 4.5rem;
       align-items: center;
     }
   }
@@ -164,9 +233,9 @@
 
   .coa-page__subtitle {
     font-size: var(--font-paragraph--size);
-    color: rgb(var(--color-foreground-rgb) / 0.7);
+    color: rgb(var(--color-foreground-rgb) / 0.65);
     max-width: 560px;
-    line-height: 1.6;
+    line-height: 1.65;
     margin: 0;
   }
 
@@ -181,14 +250,20 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
+    border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.12);
+  }
+
+  .coa-page__lab-note {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: rgb(var(--color-foreground-rgb) / 0.45);
+    letter-spacing: 0.02em;
   }
 
   /* ── Individual entry ── */
 
   .coa-entry {
-    border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
-    overflow: hidden;
+    border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.12);
   }
 
   .coa-entry__summary {
@@ -196,7 +271,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.1rem 0.25rem;
+    padding: 1.15rem 0.25rem;
     cursor: pointer;
     list-style: none;
     user-select: none;
@@ -219,22 +294,22 @@
 
   .coa-entry__badge {
     display: inline-block;
-    padding: 2px 10px;
+    padding: 3px 10px;
     background: var(--color-primary);
     color: var(--color-background);
     border-radius: 100px;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-family: var(--font-primary--family);
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
   .coa-entry__title {
     font-family: var(--font-h3--family, var(--font-h2--family));
-    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-size: clamp(0.9rem, 1.6vw, 1.05rem);
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -247,7 +322,7 @@
     align-items: center;
     flex-shrink: 0;
     transition: transform 0.3s ease, color 0.2s ease;
-    color: rgb(var(--color-foreground-rgb) / 0.5);
+    color: rgb(var(--color-foreground-rgb) / 0.4);
   }
 
   .coa-entry[open] .coa-entry__chevron {
@@ -256,20 +331,76 @@
   }
 
   .coa-entry__body {
-    padding: 0.25rem 0.25rem 1.5rem;
+    padding: 0.25rem 0.25rem 1.75rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    animation: coaPageFadeIn 0.25s ease both;
+    gap: 1.1rem;
+    animation: coaPageFadeIn 0.22s ease both;
   }
+
+  /* ── Stat chips ── */
+
+  .coa-entry__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .coa-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 0.55rem 1rem;
+    background: rgb(var(--color-foreground-rgb) / 0.06);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.1);
+    border-radius: 10px;
+    min-width: 80px;
+  }
+
+  .coa-stat__label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+    font-family: var(--font-primary--family);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  .coa-stat__value {
+    font-family: var(--font-h2--family, var(--font-primary--family));
+    font-size: 1.1rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground);
+    line-height: 1;
+  }
+
+  /* ── Description & lab info ── */
 
   .coa-entry__description {
     font-size: var(--font-paragraph--size);
-    color: rgb(var(--color-foreground-rgb) / 0.7);
+    color: rgb(var(--color-foreground-rgb) / 0.68);
     line-height: 1.65;
     margin: 0;
-    max-width: 520px;
+    max-width: 500px;
   }
+
+  .coa-entry__lab-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: rgb(var(--color-foreground-rgb) / 0.45);
+    letter-spacing: 0.02em;
+  }
+
+  .coa-entry__lab-info svg {
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  /* ── Download button ── */
 
   .coa-entry__download-btn {
     display: inline-flex;
@@ -281,7 +412,7 @@
     border: 2px solid var(--color-primary-button-border);
     border-radius: var(--style-border-radius-buttons-primary);
     font-family: var(--font-primary--family);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -295,7 +426,7 @@
     color: var(--color-primary-button-hover-text);
     border-color: var(--color-primary-button-hover-border);
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgb(var(--color-primary-rgb) / 0.3);
+    box-shadow: 0 6px 18px rgb(var(--color-primary-rgb) / 0.25);
   }
 
   .coa-entry__download-icon {
@@ -337,14 +468,14 @@
     left: 0;
     right: 0;
     padding: 1rem 1.25rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.55));
+    background: linear-gradient(transparent, rgba(0,0,0,0.5));
     color: #fff;
     font-size: var(--font-paragraph-small--size);
     margin: 0;
   }
 
   .coa-page__empty {
-    color: rgb(var(--color-foreground-rgb) / 0.5);
+    color: rgb(var(--color-foreground-rgb) / 0.45);
     font-style: italic;
     margin-top: 2rem;
   }
@@ -361,10 +492,10 @@
     .coa-page__image-wrap {
       border-radius: 12px;
     }
-    @media screen and (min-width: 750px) {
-      .coa-page__image {
-        aspect-ratio: 16 / 7;
-      }
+  }
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .coa-page__image {
+      aspect-ratio: 16 / 7;
     }
   }
 {% endstylesheet %}
@@ -380,25 +511,80 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Product name",
-          "default": "Product Name"
-        },
-        {
-          "type": "textarea",
-          "id": "description",
-          "label": "Brief description",
-          "default": "Third-party lab tested. Tap to view and download the Certificate of Analysis."
-        },
-        {
-          "type": "url",
-          "id": "pdf_url",
-          "label": "COA PDF link"
+          "label": "Product name"
         },
         {
           "type": "text",
           "id": "badge",
-          "label": "Badge label (optional)",
-          "info": "Short label shown next to the title, e.g. \"New\" or \"Rosin Roll\""
+          "label": "Badge label",
+          "info": "Short pill label next to the title, e.g. \"Hash Hole\" or \"Edible\""
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Cannabinoid Stats"
+        },
+        {
+          "type": "text",
+          "id": "total_thc",
+          "label": "Total THC",
+          "info": "e.g. 45.07%"
+        },
+        {
+          "type": "text",
+          "id": "thca",
+          "label": "THCa",
+          "info": "e.g. 51.32% — leave blank if not applicable"
+        },
+        {
+          "type": "text",
+          "id": "cbd",
+          "label": "CBD",
+          "info": "e.g. 1.64%"
+        },
+        {
+          "type": "text",
+          "id": "d8_thc",
+          "label": "Δ8-THC",
+          "info": "e.g. 3.41% — leave blank if ND"
+        },
+        {
+          "type": "header",
+          "content": "Lab Info"
+        },
+        {
+          "type": "text",
+          "id": "lab_name",
+          "label": "Lab name"
+        },
+        {
+          "type": "text",
+          "id": "sample_id",
+          "label": "Sample ID"
+        },
+        {
+          "type": "text",
+          "id": "test_date",
+          "label": "Test date"
+        },
+        {
+          "type": "header",
+          "content": "PDF File"
+        },
+        {
+          "type": "text",
+          "id": "pdf_filename",
+          "label": "PDF filename (from theme assets)",
+          "info": "Filename only, e.g. \"126550-dummiez-hash-hole-gas-berry.pdf\". This takes priority over the URL field below."
+        },
+        {
+          "type": "url",
+          "id": "pdf_url",
+          "label": "PDF URL (external fallback)"
         }
       ]
     }
@@ -442,7 +628,7 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color Scheme",
-      "default": "scheme-5"
+      "default": "scheme-1"
     },
     {
       "type": "header",
@@ -471,36 +657,7 @@
   ],
   "presets": [
     {
-      "name": "COA Page",
-      "blocks": [
-        {
-          "type": "coa_entry",
-          "settings": {
-            "title": "Rosin Roll — Gas Berry",
-            "description": "Premium live rosin preroll. Gas Berry terpene profile — earthy, fuel-forward with a berry finish. Tested by PharmLabs San Diego.",
-            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126550-rosin-roll-gas-berry.pdf?lod=false",
-            "badge": "Rosin Roll"
-          }
-        },
-        {
-          "type": "coa_entry",
-          "settings": {
-            "title": "Rosin Roll — Tropical Fusion",
-            "description": "Premium live rosin preroll. Tropical Fusion terpene profile — sweet citrus, mango, and tropical fruit notes. Tested by PharmLabs San Diego.",
-            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126552-rosin-roll-tropical-fusion.pdf?lod=false",
-            "badge": "Rosin Roll"
-          }
-        },
-        {
-          "type": "coa_entry",
-          "settings": {
-            "title": "Highkey — Mimosa",
-            "description": "Premium preroll. Mimosa strain — bright citrus and champagne terpene profile. Tested by PharmLabs San Diego.",
-            "pdf_url": "https://sandiego.pharmlabscannabistesting.com/COA/126554-highkey-mimosa.pdf?lod=false",
-            "badge": "Highkey"
-          }
-        }
-      ]
+      "name": "COA Page"
     }
   ]
 }
