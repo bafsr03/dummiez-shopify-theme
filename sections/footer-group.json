@@ -176,7 +176,7 @@
               "type": "text",
               "name": "Learn column",
               "settings": {
-                "text": "<h4>Learn</h4><p><a href=\"/pages/contact\">FAQ</a></p><p><a href=\"/pages/contact\">Contact Us</a></p><p><a href=\"/pages/coas-legal-terms-conditions\">Lab Results (COAs)</a></p>",
+                "text": "<h4>Learn</h4><p><a href=\"/pages/contact\">FAQ</a></p><p><a href=\"/pages/contact\">Contact Us</a></p><p><a href=\"mailto:Info@dummiez.co\">Info@dummiez.co</a></p><p><a href=\"tel:4438788316\">443-878-8316</a></p><p><a href=\"/pages/coas-legal-terms-conditions\">Lab Results (COAs)</a></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -202,7 +202,7 @@
               "type": "text",
               "name": "More column",
               "settings": {
-                "text": "<h4>More</h4><p><a href=\"/pages/terms-conditions\">Terms &amp; Conditions</a></p><p><a href=\"/pages/privacy-policy\">Privacy Policy</a></p>",
+                "text": "<h4>More</h4><p><a href=\"/pages/terms-conditions\">Terms &amp; Conditions</a></p><p><a href=\"/pages/privacy-policy\">Privacy Policy</a></p><p><a href=\"/policies/refund-policy\">Returns</a></p><p><a href=\"/policies/shipping-policy\">Shipping &amp; Delivery</a></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
