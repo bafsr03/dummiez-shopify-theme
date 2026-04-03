@@ -176,7 +176,7 @@
               "type": "text",
               "name": "Learn column",
               "settings": {
-                "text": "<h4>Learn</h4><p><a href=\"/pages/contact\">FAQ</a></p><p><a href=\"/pages/contact\">Contact Us</a></p><p><a href=\"mailto:Info@dummiez.co\">Info@dummiez.co</a></p><p><a href=\"tel:4438788316\">443-878-8316</a></p><p><a href=\"/pages/coas-legal-terms-conditions\">Lab Results (COAs)</a></p>",
+                "text": "<h4>Learn</h4><p><a href=\"/pages/contact\">FAQ</a></p><p><a href=\"/pages/contact\">Contact Us</a></p><p><span style=\"font-size:1.125rem;\"><a href=\"mailto:Info@dummiez.co\">Info@dummiez.co</a></span></p><p><span style=\"font-size:1.125rem;\"><a href=\"tel:4438788316\">443-878-8316</a></span></p><p><a href=\"/pages/coas-legal-terms-conditions\">Lab Results (COAs)</a></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
