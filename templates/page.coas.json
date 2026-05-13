@@ -14,7 +14,6 @@
       "blocks": {
         "coa-gas-berry": {
           "type": "coa_entry",
-          "disabled": true,
           "settings": {
             "title": "Hash Hole — Gas Berry",
             "badge": "Hash Hole",
@@ -32,7 +31,6 @@
         },
         "coa-tropical-fusion": {
           "type": "coa_entry",
-          "disabled": true,
           "settings": {
             "title": "Hash Hole — Tropical Fusion",
             "badge": "Hash Hole",
@@ -50,7 +48,6 @@
         },
         "coa-mimosa": {
           "type": "coa_entry",
-          "disabled": true,
           "settings": {
             "title": "Hash Hole — Mimosa",
             "badge": "Hash Hole",
@@ -68,6 +65,7 @@
         },
         "coa-edibles-batch1": {
           "type": "coa_entry",
+          "disabled": true,
           "settings": {
             "title": "Dummiez Edibles — Batch #1",
             "badge": "Edible",
