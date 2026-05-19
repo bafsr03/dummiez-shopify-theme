@@ -552,6 +552,7 @@
           camera-orbit="0deg 90deg auto"
           min-camera-orbit="-60deg 90deg auto"
           max-camera-orbit="60deg 90deg auto"
+          camera-target="0m 0m 0m"
           tone-mapping="commerce"
           exposure="{{ section.settings.glb_exposure | default: 1.2 }}"
           environment-image="neutral"
@@ -856,11 +857,13 @@
       width: 65%;
       height: 100%;
       justify-content: flex-end;
+      align-items: stretch;
     }
 
     .hero__glb-viewer {
       width: 100%;
       height: 100%;
+      animation: none;
     }
   }
 {% endstylesheet %}
