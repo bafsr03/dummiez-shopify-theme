@@ -550,8 +550,8 @@
           disable-zoom
           disable-pan
           camera-orbit="0deg 90deg auto"
-          min-camera-orbit="-90deg 90deg auto"
-          max-camera-orbit="90deg 90deg auto"
+          min-camera-orbit="-60deg 90deg auto"
+          max-camera-orbit="60deg 90deg auto"
           tone-mapping="commerce"
           exposure="{{ section.settings.glb_exposure | default: 1.2 }}"
           environment-image="neutral"
@@ -572,27 +572,26 @@
 
           function tick() {
             if (!userInteracting) {
-              t += 0.008;
-              var angle = (Math.sin(t) * 90).toFixed(2);
+              t += 0.006;
+              var angle = (Math.sin(t) * 25).toFixed(2);
               viewer.setAttribute('camera-orbit', angle + 'deg 90deg auto');
             }
             requestAnimationFrame(tick);
           }
 
-          viewer.addEventListener('camera-change', function (e) {
-            if (e.detail && e.detail.source === 'user-interaction') {
-              userInteracting = true;
-              clearTimeout(resumeTimer);
-              resumeTimer = setTimeout(function () { userInteracting = false; }, 2500);
-              // Enforce horizontal-only: snap phi back to 90deg and keep zoom fixed
-              try {
-                var orb = viewer.getCameraOrbit();
-                if (orb) {
-                  var thetaDeg = (orb.theta * 180 / Math.PI).toFixed(2);
-                  viewer.setAttribute('camera-orbit', thetaDeg + 'deg 90deg auto');
-                }
-              } catch (err) {}
-            }
+          viewer.addEventListener('pointerdown', function () {
+            userInteracting = true;
+            clearTimeout(resumeTimer);
+          });
+
+          viewer.addEventListener('pointerup', function () {
+            clearTimeout(resumeTimer);
+            resumeTimer = setTimeout(function () { userInteracting = false; }, 1500);
+          });
+
+          viewer.addEventListener('pointercancel', function () {
+            clearTimeout(resumeTimer);
+            resumeTimer = setTimeout(function () { userInteracting = false; }, 1500);
           });
 
           requestAnimationFrame(tick);
@@ -830,7 +829,7 @@
     z-index: var(--layer-flat);
     pointer-events: none;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
   }
 
@@ -849,51 +848,19 @@
   }
 
   @media screen and (max-width: 749px) {
-    .hero:has(.hero__glb-overlay) .hero__container {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
     .hero__glb-overlay {
-      position: relative;
-      width: 100%;
-      height: 420px;
-      flex-shrink: 0;
-      order: -1;
-      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: auto;
+      width: 65%;
+      height: 100%;
+      justify-content: flex-end;
     }
 
     .hero__glb-viewer {
       width: 100%;
       height: 100%;
-    }
-
-    .hero:has(.hero__glb-overlay) .hero__content-wrapper {
-      position: relative;
-      inset: unset;
-      flex: 1;
-      padding-block: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .hero:has(.hero__glb-overlay) .hero__content-wrapper * {
-      text-align: center;
-    }
-
-    .hero:has(.hero__glb-overlay) .hero__content-wrapper .layout-panel-flex {
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .hero:has(.hero__glb-overlay) .hero__content-wrapper [class*="block"] {
-      align-items: center !important;
-      justify-content: center !important;
-      width: 100%;
     }
   }
 {% endstylesheet %}
