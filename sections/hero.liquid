@@ -549,9 +549,9 @@
           camera-controls
           disable-zoom
           disable-pan
-          camera-orbit="-90deg 90deg auto"
-          min-camera-orbit="-150deg 90deg auto"
-          max-camera-orbit="-30deg 90deg auto"
+          camera-orbit="-105deg 90deg auto"
+          min-camera-orbit="-165deg 90deg auto"
+          max-camera-orbit="-45deg 90deg auto"
           camera-target="0m 0m 0m"
           tone-mapping="commerce"
           exposure="{{ section.settings.glb_exposure | default: 1.2 }}"
@@ -570,7 +570,7 @@
           var userInteracting = false;
           var resumeTimer = null;
 
-          var centerAngle = -90; // ← adjust this to rotate which face is shown
+          var centerAngle = -105; // ← adjust this to rotate which face is shown
           function tick() {
             if (!userInteracting) {
               t += 0.006;
