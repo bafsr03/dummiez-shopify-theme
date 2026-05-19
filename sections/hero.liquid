@@ -536,8 +536,12 @@
       {% content_for 'blocks' %}
     </div>
     {%- if section.settings.show_glb_model -%}
-      {%- assign glb_filename = section.settings.glb_model | default: 'preroll.glb' -%}
-      {%- assign glb_src = glb_filename | asset_url -%}
+      {%- assign glb_model = section.settings.glb_model | default: 'preroll.glb' -%}
+      {%- if glb_model contains '://' -%}
+        {%- assign glb_src = glb_model -%}
+      {%- else -%}
+        {%- assign glb_src = glb_model | asset_url -%}
+      {%- endif -%}
       <div class="hero__glb-overlay">
         <model-viewer
           src="{{ glb_src }}"
@@ -925,9 +929,9 @@
     {
       "type": "text",
       "id": "glb_model",
-      "label": "3D model filename",
+      "label": "3D model (filename or URL)",
       "default": "preroll.glb",
-      "info": "Filename of the .glb file in your theme assets (e.g. preroll.glb). Upload new files via Online Store → Themes → Edit code → Assets.",
+      "info": "Paste a full URL (e.g. from Shopify Admin → Content → Files) or a filename from theme assets.",
       "visible_if": "{{ section.settings.show_glb_model }}"
     },
     {
