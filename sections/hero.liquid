@@ -549,18 +549,17 @@
           camera-controls
           disable-zoom
           disable-pan
-          camera-orbit="0deg 90deg auto"
-          min-camera-orbit="-60deg 90deg auto"
-          max-camera-orbit="60deg 90deg auto"
+          camera-orbit="-90deg 90deg auto"
+          min-camera-orbit="-150deg 90deg auto"
+          max-camera-orbit="-30deg 90deg auto"
           camera-target="0m 0m 0m"
           tone-mapping="commerce"
           exposure="{{ section.settings.glb_exposure | default: 1.2 }}"
-          environment-image="neutral"
-          shadow-intensity="1.2"
+          shadow-intensity="0.5"
           shadow-softness="0.8"
           interaction-prompt="none"
           class="hero__glb-viewer"
-          style="filter: saturate({{ section.settings.glb_saturation | default: 1.3 }});"
+          style="background: transparent; background-color: transparent; filter: saturate({{ section.settings.glb_saturation | default: 1.3 }});"
         ></model-viewer>
       </div>
       <script>
@@ -571,10 +570,11 @@
           var userInteracting = false;
           var resumeTimer = null;
 
+          var centerAngle = -90; // ← adjust this to rotate which face is shown
           function tick() {
             if (!userInteracting) {
               t += 0.006;
-              var angle = (Math.sin(t) * 25).toFixed(2);
+              var angle = (centerAngle + Math.sin(t) * 25).toFixed(2);
               viewer.setAttribute('camera-orbit', angle + 'deg 90deg auto');
             }
             requestAnimationFrame(tick);
@@ -849,6 +849,10 @@
   }
 
   @media screen and (max-width: 749px) {
+    .hero:has(.hero__glb-overlay) {
+      min-height: 620px;
+    }
+
     .hero__glb-overlay {
       position: absolute;
       top: 0;
