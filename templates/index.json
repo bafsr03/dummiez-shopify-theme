@@ -58,7 +58,7 @@
                 "width": "100%",
                 "max_width": "narrow",
                 "alignment": "left",
-                "type_preset": "h2",
+                "type_preset": "h1",
                 "font": "var(--font-heading--family)",
                 "font_size": "",
                 "line_height": "display-tight",
