@@ -536,7 +536,7 @@
       {% content_for 'blocks' %}
     </div>
     {%- if section.settings.show_glb_model -%}
-      {%- assign glb_filename = section.settings.glb_model | default: 'dummiez.glb' -%}
+      {%- assign glb_filename = section.settings.glb_model | default: 'preroll.glb' -%}
       {%- assign glb_src = glb_filename | asset_url -%}
       <div class="hero__glb-overlay">
         <model-viewer
@@ -895,8 +895,8 @@
       "type": "text",
       "id": "glb_model",
       "label": "3D model filename",
-      "default": "dummiez.glb",
-      "info": "Filename of the .glb file in your theme assets (e.g. dummiez.glb). Upload new files via Online Store → Themes → Edit code → Assets.",
+      "default": "preroll.glb",
+      "info": "Filename of the .glb file in your theme assets (e.g. preroll.glb). Upload new files via Online Store → Themes → Edit code → Assets.",
       "visible_if": "{{ section.settings.show_glb_model }}"
     },
     {
