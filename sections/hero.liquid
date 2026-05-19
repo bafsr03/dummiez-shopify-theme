@@ -549,9 +549,9 @@
           camera-controls
           disable-zoom
           disable-pan
-          camera-orbit="0deg 90deg auto"
-          min-camera-orbit="-90deg 90deg auto"
-          max-camera-orbit="90deg 90deg auto"
+          camera-orbit="0deg 90deg 75%"
+          min-camera-orbit="-90deg 90deg 75%"
+          max-camera-orbit="90deg 90deg 75%"
           tone-mapping="commerce"
           exposure="{{ section.settings.glb_exposure | default: 1.2 }}"
           environment-image="neutral"
@@ -574,7 +574,7 @@
             if (!userInteracting) {
               t += 0.008;
               var angle = (Math.sin(t) * 90).toFixed(2);
-              viewer.setAttribute('camera-orbit', angle + 'deg 90deg auto');
+              viewer.setAttribute('camera-orbit', angle + 'deg 90deg 75%');
             }
             requestAnimationFrame(tick);
           }
@@ -584,6 +584,14 @@
               userInteracting = true;
               clearTimeout(resumeTimer);
               resumeTimer = setTimeout(function () { userInteracting = false; }, 2500);
+              // Enforce horizontal-only: snap phi back to 90deg and keep zoom fixed
+              try {
+                var orb = viewer.getCameraOrbit();
+                if (orb) {
+                  var thetaDeg = (orb.theta * 180 / Math.PI).toFixed(2);
+                  viewer.setAttribute('camera-orbit', thetaDeg + 'deg 90deg 75%');
+                }
+              } catch (err) {}
             }
           });
 
