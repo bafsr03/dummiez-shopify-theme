@@ -79,7 +79,7 @@
             "text_subheading": {
               "type": "text",
               "settings": {
-                "text": "<p>Premium hemp-infused edibles for the modern life.</p>",
+                "text": "<p>Premium hemp prerolls for the modern life.</p>",
                 "width": "80%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -169,7 +169,7 @@
         "marquee_item_1": {
           "type": "text",
           "settings": {
-            "text": "<p>PREMIUM HEMP EDIBLES</p>",
+            "text": "<p>PREMIUM HEMP PREROLLS</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
